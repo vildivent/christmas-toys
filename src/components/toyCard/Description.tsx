@@ -16,7 +16,7 @@ const Description = ({ descriptionData }: DescriptionProps) => {
 
 type DescriptionFieldProps = {
   name: string;
-  value: string;
+  value: string | number;
 };
 
 const DescriptionField = ({ name, value }: DescriptionFieldProps) => {
