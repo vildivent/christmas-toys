@@ -31,6 +31,8 @@ const Edit = () => {
   const currentToy = useToysStore((state) => state.currentToy);
   const deleteToy = useToysStore((state) => state.deleteToy);
   const editToy = useToysStore((state) => state.editToy);
+  const newToy = useToysStore((state) => state.newToy);
+  const setCurrentToy = useToysStore((state) => state.setCurrentToy);
 
   const setIsOpen = useCardStore((state) => state.setIsOpen);
   const setCardContent = useCardStore((state) => state.setCardContent);
@@ -42,7 +44,11 @@ const Edit = () => {
   };
 
   const saveHandler = () => {
-    if (currentToy) editToy(currentToy);
+    if (newToy) {
+      editToy(newToy);
+      setCurrentToy(newToy.id);
+    }
+
     setCardContent("selected");
   };
 

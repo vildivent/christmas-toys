@@ -28,7 +28,7 @@ export const descriptionData: descriptionData = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius facere obcaecati ratione tenetur quod. Distinctio quibusdam ullam ad error adipisci debitis sapiente nihil explicabo, tenetur neque temporibus amet veritatis veniam.",
   },
   {
-    name: "Номер коробки",
+    name: "Коробка",
     value: 1,
   },
 ];
@@ -42,7 +42,10 @@ export type toyItem = {
     url: string | StaticImageData;
     ar: number;
   }[];
-  description: descriptionData;
+  description: {
+    name: string;
+    value: string | number;
+  }[];
 };
 
 export const toyItems: toyItem[] = [
