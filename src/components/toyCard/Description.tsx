@@ -6,7 +6,7 @@ type DescriptionProps = {
 
 const Description = ({ descriptionData }: DescriptionProps) => {
   return (
-    <div className="grid grid-cols-description gap-x-2">
+    <div className="grid grid-cols-description gap-x-2 self-start">
       {descriptionData.map((item) => (
         <DescriptionField key={item.name} name={item.name} value={item.value} />
       ))}
