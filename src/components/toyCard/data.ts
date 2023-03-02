@@ -2,7 +2,7 @@ import { type StaticImageData } from "next/image";
 
 export type descriptionData = {
   name: string;
-  value: string;
+  value: string | number;
 }[];
 
 export const descriptionData: descriptionData = [
@@ -11,12 +11,16 @@ export const descriptionData: descriptionData = [
     value: "Стекло",
   },
   {
-    name: "Год",
-    value: "2023",
+    name: "Материал",
+    value: "тонкое стекло",
   },
   {
-    name: "Редкость",
-    value: "очень редкая",
+    name: "Годы",
+    value: "2000-е",
+  },
+  {
+    name: "Категория",
+    value: "Фрукты",
   },
   {
     name: "Описание",
@@ -24,12 +28,8 @@ export const descriptionData: descriptionData = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius facere obcaecati ratione tenetur quod. Distinctio quibusdam ullam ad error adipisci debitis sapiente nihil explicabo, tenetur neque temporibus amet veritatis veniam.",
   },
   {
-    name: "Год",
-    value: "2023",
-  },
-  {
-    name: "Редкость",
-    value: "очень редкая",
+    name: "Номер коробки",
+    value: 1,
   },
 ];
 
