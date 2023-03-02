@@ -16,7 +16,7 @@ const Card = ({ isModal }: CardProps) => {
     <>
       <Menu isModal={isModal} />
 
-      <div className="flex flex-col items-center overflow-auto scroll-smooth px-5 pb-5">
+      <div className="flex flex-col items-center overflow-auto scroll-smooth px-5 pb-16">
         {content === "empty" && <></>}
         {content === "selected" && <Selected />}
         {content === "edit" && <Edit />}

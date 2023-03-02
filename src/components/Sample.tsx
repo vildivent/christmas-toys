@@ -18,7 +18,7 @@ const Sample = () => {
   };
 
   return (
-    <div className="flex flex-1 flex-col overflow-auto overflow-x-hidden bg-gray-2/80 p-5 md:max-w-[65vw]">
+    <div className="flex flex-1 flex-col overflow-auto overflow-x-hidden bg-gray-2/80 p-5 pb-16 md:max-w-[65vw]">
       <div className="flex flex-wrap justify-center gap-5">
         <AddNewBtn />
         {toys.map((toyItem) => (
