@@ -32,7 +32,7 @@ const Sample = () => {
           data.map((toyItem) => (
             <div
               key={toyItem.id}
-              className="relative h-56 w-36 cursor-pointer bg-black hover:scale-[1.03]"
+              className="relative h-56 w-36 cursor-pointer bg-gray-1 hover:scale-[1.03]"
               onClick={() => itemClickHandler(toyItem)}
             >
               {toyItem.photos[0] && (
