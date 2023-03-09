@@ -1,14 +1,19 @@
 import User from "./User";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { AiOutlineFilter } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
   const { data: sessionData } = useSession();
 
   return (
-    <nav className="flex w-full items-center justify-between bg-gray-2/80 px-5 py-2">
-      <FilterBtn />
+    <nav
+      className={`flex w-full items-center bg-gray-2/80 px-5 py-2 ${
+        sessionData?.user.role === "Admin" ? "justify-between" : "justify-end"
+      }`}
+    >
+      {sessionData?.user.role === "Admin" && <FilterBtn />}
+
       <div className="flex justify-center gap-5">
         <User />
         {sessionData ? (
@@ -36,7 +41,7 @@ export default Navbar;
 const FilterBtn = () => {
   return (
     <button>
-      <AiOutlineFilter className="text-2xl" />
+      <AiOutlineSearch className="text-2xl" />
     </button>
   );
 };

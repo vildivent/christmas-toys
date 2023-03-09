@@ -12,3 +12,10 @@
   background: #9c9c9c;
   border-radius: 8px;
 }
+
+/* input disable buttons */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

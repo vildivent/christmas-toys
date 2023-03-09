@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type CardContent = "empty" | "add" | "edit" | "selected";
+type CardContent = "empty" | "create" | "edit" | "selected";
 
 type CardState = {
   content: CardContent;

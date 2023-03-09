@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {sessionData ? (
+        {sessionData?.user.role === "Admin" ? (
           <>
             <ModalCard />
             <div
@@ -34,10 +34,15 @@ const Home: NextPage = () => {
           </>
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <div className="m-5 bg-gray-2/80 p-5">
+            <div className="m-5 flex flex-col gap-5 bg-gray-2/80 p-5 text-center">
               <h1 className="text-center font-h text-3xl">
                 Коллекция ёлочных игрушек
               </h1>
+              {sessionData && (
+                <div className="text-red-500">
+                  только администратор может просматривать коллекцию
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -47,8 +52,6 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-export type toyCardState = "empty" | "add" | "edit" | "selected";
 
 const ModalCard = () => {
   const isOpen = useCardStore((state) => state.isOpen);

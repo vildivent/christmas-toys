@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Image" ALTER COLUMN "aspect_ratio" SET DATA TYPE DOUBLE PRECISION;
