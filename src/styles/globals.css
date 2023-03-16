@@ -4,8 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  color: white;
+  font-family: "Shantell Sans", cursive;
+  background-color: #1e1e1e;
+}
+
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -18,4 +25,10 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
