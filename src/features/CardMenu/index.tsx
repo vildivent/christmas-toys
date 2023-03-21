@@ -8,9 +8,22 @@ import {
   useUpdateToy,
 } from "entities/Toy/lib/hooks/api";
 import { useToysStore } from "entities/Toy/lib/store";
+import { useUploadFiles } from "./lib/hooks";
+import { type Image } from "@prisma/client";
+import { fileMapper } from "./lib/fileMapper";
+import { type APIResponse, uploadNewFiles } from "./api";
 
 const CardMenu = () => {
-  const { newToy, currentToy, setCurrentToy, setNewToy } = useToysStore();
+  const {
+    newToy,
+    currentToy,
+    photosFiles,
+
+    setCurrentToy,
+    setNewToy,
+    setPhotosFiles,
+    setPhotosToAdd,
+  } = useToysStore();
   const content = useCardStore((state) => state.content);
   const { setCardContent, setIsOpen } = useCardStore();
 
@@ -18,15 +31,16 @@ const CardMenu = () => {
   const deleteToy = useDeleteToy();
   const updateToy = useUpdateToy();
 
+  const files = useUploadFiles();
+
   const deleteHandler = () => {
-    if (content === "edit") {
-      if (currentToy) {
-        deleteToy.mutate(currentToy?.id);
-        setNewToy(null);
-        setCardContent("empty");
-        setIsOpen(false);
-      }
-    }
+    if (content !== "edit") return;
+    if (!currentToy) return;
+
+    deleteToy.mutate(currentToy?.id);
+    setNewToy(null);
+    setCardContent("empty");
+    setIsOpen(false);
   };
 
   const editHandler = () => {
@@ -34,22 +48,32 @@ const CardMenu = () => {
     setCardContent("edit");
   };
 
-  const checkHandler = () => {
-    if (newToy) {
-      if (content === "create") {
-        createToy.mutate(newToy);
-        setCurrentToy(newToy);
-        setIsOpen(false);
-      }
-      if (content === "edit") {
-        updateToy.mutate(newToy);
-        setCurrentToy(newToy);
-      }
+  const checkHandler = async () => {
+    if (!newToy) return;
+
+    let photosToAdd: Image[] | undefined;
+
+    if (photosFiles && photosFiles.length) {
+      const data = await uploadNewFiles(photosFiles);
+      if (data) photosToAdd = fileMapper(data, newToy.title);
     }
-    setCardContent("selected");
+
+    if (content === "create") {
+      if (photosToAdd) createToy.mutate({ ...newToy, photos: photosToAdd });
+      else createToy.mutate({ ...newToy });
+    }
+    if (content === "edit") {
+      updateToy.mutate({ ...newToy, photosToAdd });
+      setCurrentToy(null);
+    }
+
+    setPhotosFiles(null);
+    setCardContent("empty");
+    setIsOpen(false);
   };
 
   const closeHandler = () => {
+    setPhotosFiles(null);
     if (content === "create" || content === "selected") {
       setCardContent("empty");
       setIsOpen(false);
@@ -62,7 +86,7 @@ const CardMenu = () => {
       content={content}
       deleteHandler={deleteHandler}
       editHandler={editHandler}
-      checkHandler={checkHandler}
+      checkHandler={() => void checkHandler()}
       closeHandler={closeHandler}
     />
   );

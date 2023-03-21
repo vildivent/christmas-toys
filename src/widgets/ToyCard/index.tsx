@@ -9,6 +9,7 @@ const ToyCard = () => {
   const isOpen = useCardStore((state) => state.isOpen);
   const currentToy = useToysStore((state) => state.currentToy);
   const { newToy, setNewToy } = useToysStore();
+  const { photosFiles, setPhotosFiles } = useToysStore();
 
   return (
     <div
@@ -26,6 +27,8 @@ const ToyCard = () => {
           <ToyEditForm
             toyTmp={newToy as ToyTmp}
             setToyTmp={setNewToy as (newToy: ToyTmp) => void}
+            photosFiles={photosFiles}
+            setPhotosFiles={setPhotosFiles}
           />
         )}
       </div>

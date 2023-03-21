@@ -1,4 +1,4 @@
-import { type MouseEventHandler, useState } from "react";
+import { type MouseEventHandler, useState, type ReactNode } from "react";
 import {
   AiOutlineCheck,
   AiOutlineClose,
@@ -9,10 +9,10 @@ import {
 } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
+import { theme } from "shared/constants";
 
-const outlineBtnStyle = "text-2xl transition hover:text-green-600";
-const loginBtnStyle =
-  "text-md h-auto rounded-lg bg-green-800 px-5 py-2 font-h text-white no-underline transition hover:bg-green-600";
+const outlineBtnStyle = `text-2xl transition ${theme.mainColor.tw.hover.text}`;
+const loginBtnStyle = `text-md h-auto rounded-lg ${theme.secondaryColor.tw.bg} px-5 py-2 font-h text-white no-underline transition ${theme.mainColor.tw.hover.bg}`;
 
 export const AddBtn = ({
   onClick,
@@ -102,10 +102,11 @@ export const LoginBtn = ({
   onClick,
   className = loginBtnStyle,
   disabled,
-}: BtnProps) => {
+  children = "Войти",
+}: BtnProps & { children?: ReactNode }) => {
   return (
     <button className={className} onClick={onClick} disabled={disabled}>
-      Войти
+      {children}
     </button>
   );
 };

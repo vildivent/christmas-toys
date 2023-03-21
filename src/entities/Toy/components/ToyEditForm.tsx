@@ -8,7 +8,8 @@ import {
 import ImageSlider from "./ImageSlider";
 import { datesOptions, materialOptions } from "entities/Toy/constants";
 import { type Image } from "@prisma/client";
-import { type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
+import { LoginBtn } from "shared/ui/buttons";
 
 export type ToyTmp = {
   title?: string | null;
@@ -25,9 +26,18 @@ export type ToyTmp = {
 type ToyEditFormProps = {
   toyTmp: ToyTmp;
   setToyTmp: (newToy: ToyTmp) => void;
+  photosFiles: FileList | null;
+  setPhotosFiles: (files: FileList | null) => void;
 };
 
-const ToyEditForm = ({ toyTmp, setToyTmp }: ToyEditFormProps) => {
+const ToyEditForm = ({
+  toyTmp,
+  setToyTmp,
+  photosFiles,
+  setPhotosFiles,
+}: ToyEditFormProps) => {
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
+
   return (
     <form
       className="flex w-full flex-col gap-3"
@@ -39,7 +49,24 @@ const ToyEditForm = ({ toyTmp, setToyTmp }: ToyEditFormProps) => {
         <div className="h-[350px] w-full" />
       )}
 
-      {/* <input type="file" multiple accept="image/*" /> */}
+      <div className="flex justify-center">
+        <LoginBtn onClick={() => hiddenFileInput.current?.click()}>
+          {photosFiles && photosFiles.length
+            ? `Выбрано файлов: ${photosFiles.length}`
+            : "Выберите фото..."}
+        </LoginBtn>
+      </div>
+      <input
+        id="photos"
+        type="file"
+        name="photos"
+        accept="image/*"
+        ref={hiddenFileInput}
+        onChange={(e) => setPhotosFiles(e.target.files)}
+        className="hidden"
+        multiple
+      />
+
       <div className="pl-5 pr-6 pb-5">
         <TitleInput
           value={toyTmp?.title || ""}

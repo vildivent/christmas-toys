@@ -4,8 +4,6 @@ import { type Image as Img } from "@prisma/client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-const ImageHeight = 300;
-
 type ImageSliderProps = {
   photos: Img[];
 };
@@ -19,24 +17,28 @@ const ImageSlider = ({ photos }: ImageSliderProps) => {
         spaceBetween={0}
         slidesPerView={1}
         onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
+        onSwiper={(swiper) => setCurrentIndex(swiper.activeIndex)}
+        className="relative"
       >
         {photos.map((photo) => (
-          <SwiperSlide key={photo.id}>
-            <Image
-              className="prevent-select mx-auto"
-              key={photo.id}
-              src={photo.url}
-              alt={photo.title}
-              height={ImageHeight}
-              width={ImageHeight * photo.aspect_ratio}
-              draggable={false}
-            />
+          <SwiperSlide key={photo.id} unselectable="on">
+            <div className="relative flex h-[350px] w-full items-center justify-center">
+              <Image
+                className="prevent-select object-contain"
+                key={photo.id}
+                src={photo.url}
+                alt={photo.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                draggable={false}
+              />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="mt-2 text-center">{`${currentIndex + 1} / ${
-        photos.length
-      }`}</div>
+      <div className="mt-2 text-center">{`${
+        photos.length ? currentIndex + 1 : 0
+      } / ${photos.length}`}</div>
     </div>
   );
 };

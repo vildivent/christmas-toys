@@ -80,8 +80,31 @@ export const toyRouter = createTRPCRouter({
     }),
 
   update: protectedProcedure
-    .input(z.object({ ...zodCreateInput, id: z.string() }))
+    .input(
+      z.object({
+        ...zodCreateInput,
+        id: z.string(),
+        photosToAdd: z
+          .array(
+            z.object({
+              title: z.string().min(1),
+              url: z.string().min(1).url(),
+              aspect_ratio: z.number().positive(),
+            })
+          )
+          .optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
+      if (input.photosToAdd)
+        await ctx.prisma.image.createMany({
+          data: input.photosToAdd.map((photo) => ({
+            title: photo.title,
+            url: photo.url,
+            aspect_ratio: photo.aspect_ratio,
+            toyId: input.id,
+          })),
+        });
       return await ctx.prisma.toy.update({
         where: { id: input.id },
         data: {

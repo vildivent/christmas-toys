@@ -1,7 +1,7 @@
 import { type ChangeEventHandler } from "react";
+import { theme } from "shared/constants";
 
-const commonInputStyle =
-  "rounded-md border border-gray-500 bg-gray-2 text-white outline-none focus:border-green-600";
+const commonInputStyle = `rounded-md border border-gray-500 bg-gray-2 text-white outline-none ${theme.mainColor.tw.focus.border}`;
 
 const inputStyle = `${commonInputStyle} px-2 font-text`;
 const textInputStyle = `${inputStyle} h-40 resize-none`;
@@ -43,7 +43,8 @@ export const NumberInput = ({
       id={id}
       name={id}
       className={className}
-      type="number"
+      type="text"
+      inputMode="numeric"
       value={value}
       onChange={(e) => {
         e.target.value = mask(e.target.value);
