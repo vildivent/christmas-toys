@@ -55,9 +55,9 @@ export const toyRouter = createTRPCRouter({
       const newPhotos = input.photos.map((photo, index) => {
         if (photo.isMain && !indexForMain) {
           indexForMain = index;
-          return photo;
+          return { ...photo, id: undefined };
         }
-        return { ...photo, isMain: false };
+        return { ...photo, isMain: false, id: undefined };
       });
 
       const newToy = await ctx.prisma.toy.create({
