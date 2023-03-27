@@ -86,6 +86,10 @@ export const toyRouter = createTRPCRouter({
               connect: { id: mainPhoto.id },
             },
           },
+          include: {
+            photos: true,
+            mainPhoto: true,
+          },
         });
 
       return newToy;
