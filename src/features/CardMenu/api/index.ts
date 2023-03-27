@@ -10,6 +10,11 @@ export type APIResponse = {
   aspectRatio: number[];
 };
 
+type DeleteResponse = {
+  status: string;
+  message: string;
+};
+
 export const uploadNewFiles = async (files: FileList | null) => {
   if (!files || !files.length) return null;
 
@@ -22,4 +27,9 @@ export const uploadNewFiles = async (files: FileList | null) => {
   return await axios
     .post<APIResponse>(`${uploaderUrl}/upload/christmas-toys`, formData)
     .then((res) => res.data);
+};
+
+export const deleteFile = async (fileUrl: string | null) => {
+  if (fileUrl)
+    return await axios.delete<DeleteResponse>(fileUrl).then((res) => res.data);
 };

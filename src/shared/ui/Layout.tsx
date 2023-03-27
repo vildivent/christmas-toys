@@ -8,10 +8,10 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="h-[100svh] w-screen">
+    <div className="fixed inset-0 h-[100svh] w-screen">
       <Image className="object-cover" src="/bg.png" alt="Фон" fill />
 
-      <div className="fixed top-0 left-0 right-0 bottom-0 flex flex-col gap-2">
+      <div className="fixed inset-0 flex flex-col gap-2">
         <Navbar />
         <div className="flex-1">{children}</div>
       </div>

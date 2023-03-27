@@ -1,3 +1,5 @@
+import type { ReactNode, RefObject } from "react";
+import { type Image } from "@prisma/client";
 import {
   NumberInput,
   SelectInput,
@@ -5,11 +7,9 @@ import {
   TextInput,
   TitleInput,
 } from "shared/ui/inputs";
+import { LoginBtn } from "shared/ui/buttons";
 import ImageSlider from "./ImageSlider";
 import { datesOptions, materialOptions } from "entities/Toy/constants";
-import { type Image } from "@prisma/client";
-import { useRef, type ReactNode } from "react";
-import { LoginBtn } from "shared/ui/buttons";
 
 export type ToyTmp = {
   title?: string | null;
@@ -20,40 +20,44 @@ export type ToyTmp = {
   size?: number | null;
   description?: string | null;
   box?: number | null;
-  photos?: Image[];
+  photos?: (Image & { isLocal?: boolean })[];
 };
 
 type ToyEditFormProps = {
   toyTmp: ToyTmp;
+  hiddenFileInput: RefObject<HTMLInputElement>;
   setToyTmp: (newToy: ToyTmp) => void;
-  photosFiles: FileList | null;
-  setPhotosFiles: (files: FileList | null) => void;
+  setMainImgHandler: (id: string) => void;
+  deleteImgHandler: (id: string) => void;
+  fileInputChangeHandler: (files: FileList | null) => void;
 };
 
 const ToyEditForm = ({
   toyTmp,
+  hiddenFileInput,
   setToyTmp,
-  photosFiles,
-  setPhotosFiles,
+  setMainImgHandler,
+  deleteImgHandler,
+  fileInputChangeHandler,
 }: ToyEditFormProps) => {
-  const hiddenFileInput = useRef<HTMLInputElement>(null);
-
   return (
     <form
       className="flex w-full flex-col gap-3"
       onSubmit={(e) => e.preventDefault()}
     >
-      {toyTmp && toyTmp.photos ? (
-        <ImageSlider photos={toyTmp.photos} />
+      {toyTmp && toyTmp.photos?.length ? (
+        <ImageSlider
+          photos={toyTmp.photos}
+          setMainImgHandler={setMainImgHandler}
+          deleteImgHandler={deleteImgHandler}
+        />
       ) : (
-        <div className="h-[350px] w-full" />
+        <></>
       )}
 
       <div className="flex justify-center">
         <LoginBtn onClick={() => hiddenFileInput.current?.click()}>
-          {photosFiles && photosFiles.length
-            ? `Выбрано файлов: ${photosFiles.length}`
-            : "Выберите фото..."}
+          Выбрать фото...
         </LoginBtn>
       </div>
       <input
@@ -62,7 +66,7 @@ const ToyEditForm = ({
         name="photos"
         accept="image/*"
         ref={hiddenFileInput}
-        onChange={(e) => setPhotosFiles(e.target.files)}
+        onChange={(e) => fileInputChangeHandler(e.target.files)}
         className="hidden"
         multiple
       />
@@ -134,7 +138,9 @@ const ToyEditForm = ({
             <NumberInput
               id="box"
               value={toyTmp?.box || 0}
-              onChange={(e) => setToyTmp({ ...toyTmp, box: +e.target.value })}
+              onChange={(e) =>
+                setToyTmp({ ...toyTmp, box: Number(e.target.value) })
+              }
             />
           </Label>
         </div>

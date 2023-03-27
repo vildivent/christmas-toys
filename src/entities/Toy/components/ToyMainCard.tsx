@@ -12,8 +12,8 @@ type ToyMainCardProps = {
 const ToyMainCard = ({
   toyItem,
   onClick,
-  width = "9rem",
-  height = "14rem",
+  width = "10rem",
+  height = "9rem",
 }: ToyMainCardProps) => {
   return (
     <div
@@ -21,12 +21,13 @@ const ToyMainCard = ({
       style={{ height, width }}
       onClick={onClick}
     >
-      {toyItem.photos[0] && (
+      {toyItem.mainPhoto && (
         <Image
           className="object-cover"
-          src={toyItem.photos[0].url}
+          src={toyItem.mainPhoto.url}
           alt={toyItem.title}
           fill
+          sizes={width.toString()}
         />
       )}
     </div>

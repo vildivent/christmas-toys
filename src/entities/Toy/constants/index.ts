@@ -12,6 +12,7 @@ export const exampleToy: ToyItem = {
   size: 0,
   description: "",
   photos: [],
+  mainPhotoId: "1",
   box: 1,
 };
 

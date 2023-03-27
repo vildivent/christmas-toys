@@ -1,30 +1,38 @@
-import { type Image } from "@prisma/client";
 import { type ToyItem } from "shared/types";
 import { create } from "zustand";
 
-type ToysState = {
-  currentToy: ToyItem | null;
+export const useNewToyStore = create<NewToyState>((set) => ({
+  newToy: null,
+  setNewToy: (newToy) => set({ newToy }),
+}));
+
+export const useCurrentToyStore = create<CurrentToyState>((set) => ({
+  currentToy: null,
+  setCurrentToy: (currentToy) => set({ currentToy }),
+}));
+
+export const useToysPhotosStore = create<ToysPhotosState>((set) => ({
+  photosToDelete: null,
+  photosToAdd: null,
+
+  setPhotosToDelete: (id) => set((state) => ({ ...state, photosToDelete: id })),
+  setPhotosToAdd: (files) => set((state) => ({ ...state, photosFiles: files })),
+}));
+
+type NewToyState = {
   newToy: ToyItem | null;
-  photosToAdd: Image[] | null;
-  photosToDelete: string[] | null;
-  photosFiles: FileList | null;
-  setCurrentToy: (currentToy: ToyItem | null) => void;
   setNewToy: (newToy: ToyItem | null) => void;
-  setPhotosToAdd: (newPhotos: Image[] | null) => void;
-  setPhotosToDelete: (id: string[] | null) => void;
-  setPhotosFiles: (files: FileList | null) => void;
 };
 
-export const useToysStore = create<ToysState>((set) => ({
-  currentToy: null,
-  newToy: null,
-  photosToAdd: null,
-  photosToDelete: null,
-  photosFiles: null,
-  setNewToy: (newToy) => set((state) => ({ ...state, newToy })),
-  setCurrentToy: (currentToy) => set(() => ({ currentToy })),
-  setPhotosToAdd: (newPhotos) =>
-    set((state) => ({ ...state, photosToAdd: newPhotos })),
-  setPhotosToDelete: (id) => set((state) => ({ ...state, photosToDelete: id })),
-  setPhotosFiles: (files) => set((state) => ({ ...state, photosFiles: files })),
-}));
+type CurrentToyState = {
+  currentToy: ToyItem | null;
+  setCurrentToy: (currentToy: ToyItem | null) => void;
+};
+
+type ToysPhotosState = {
+  photosToDelete: string[] | null;
+  photosToAdd: FileList | null;
+
+  setPhotosToDelete: (id: string[] | null) => void;
+  setPhotosToAdd: (files: FileList | null) => void;
+};

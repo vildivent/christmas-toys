@@ -1,14 +1,20 @@
 import { type MouseEventHandler, useState, type ReactNode } from "react";
 import {
+  AiFillStar,
   AiOutlineCheck,
   AiOutlineClose,
   AiOutlineDelete,
   AiOutlineEdit,
   AiOutlineMenu,
   AiOutlineSearch,
+  AiOutlineStar,
 } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
-import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
+import {
+  MdOutlineHideImage,
+  MdOutlineNavigateBefore,
+  MdOutlineNavigateNext,
+} from "react-icons/md";
 import { theme } from "shared/constants";
 
 const outlineBtnStyle = `text-2xl transition ${theme.mainColor.tw.hover.text}`;
@@ -58,6 +64,31 @@ export const CloseBtn = ({
   return (
     <button onClick={onClick} className={className} disabled={disabled}>
       <AiOutlineClose />
+    </button>
+  );
+};
+
+export const DeleteImgBtn = ({
+  onClick,
+  className = outlineBtnStyle,
+  disabled,
+}: BtnProps) => {
+  return (
+    <button onClick={onClick} className={className} disabled={disabled}>
+      <MdOutlineHideImage />
+    </button>
+  );
+};
+
+export const SetMainImgBtn = ({
+  onClick,
+  className = outlineBtnStyle,
+  disabled,
+  isMain,
+}: BtnProps & { isMain: boolean }) => {
+  return (
+    <button onClick={onClick} className={className} disabled={disabled}>
+      {isMain ? <AiFillStar /> : <AiOutlineStar />}
     </button>
   );
 };

@@ -1,43 +1,43 @@
+import type { MouseEventHandler, RefObject } from "react";
 import { useCardStore } from "widgets/ToyCard/lib/store";
 import { type ToyCardState } from "entities/Toy/types";
-import { type MouseEventHandler } from "react";
 import { CheckBtn, CloseBtn, DeleteBtn, EditBtn } from "shared/ui/buttons";
 import {
   useCreateToy,
   useDeleteToy,
   useUpdateToy,
 } from "entities/Toy/lib/hooks/api";
-import { useToysStore } from "entities/Toy/lib/store";
-import { useUploadFiles } from "./lib/hooks";
-import { type Image } from "@prisma/client";
+import {
+  useCurrentToyStore,
+  useNewToyStore,
+  useToysPhotosStore,
+} from "entities/Toy/lib/store";
 import { fileMapper } from "./lib/fileMapper";
-import { type APIResponse, uploadNewFiles } from "./api";
+import { uploadNewFiles } from "./api";
+import { fileListToAddMapper } from "./lib/fileListToAddMapper";
 
-const CardMenu = () => {
-  const {
-    newToy,
-    currentToy,
-    photosFiles,
+type CardMenuProps = {
+  hiddenFileInput: RefObject<HTMLInputElement>;
+};
 
-    setCurrentToy,
-    setNewToy,
-    setPhotosFiles,
-    setPhotosToAdd,
-  } = useToysStore();
-  const content = useCardStore((state) => state.content);
-  const { setCardContent, setIsOpen } = useCardStore();
+const CardMenu = ({ hiddenFileInput }: CardMenuProps) => {
+  const { content, setCardContent, setIsOpen } = useCardStore();
+
+  const { newToy, setNewToy } = useNewToyStore();
+  const { currentToy, setCurrentToy } = useCurrentToyStore();
+
+  const photosToDelete = useToysPhotosStore((state) => state.photosToDelete);
+  const { setPhotosToAdd, setPhotosToDelete } = useToysPhotosStore();
 
   const createToy = useCreateToy();
   const deleteToy = useDeleteToy();
   const updateToy = useUpdateToy();
 
-  const files = useUploadFiles();
-
   const deleteHandler = () => {
     if (content !== "edit") return;
     if (!currentToy) return;
 
-    deleteToy.mutate(currentToy?.id);
+    deleteToy.mutate(currentToy.id);
     setNewToy(null);
     setCardContent("empty");
     setIsOpen(false);
@@ -51,29 +51,43 @@ const CardMenu = () => {
   const checkHandler = async () => {
     if (!newToy) return;
 
-    let photosToAdd: Image[] | undefined;
+    const files = hiddenFileInput.current?.files;
+    const photos = newToy.photos.filter((photo) => photo.id.includes("local"));
+    const photosToUpdate = newToy.photos.filter(
+      (photo) => !photo.id.includes("local")
+    );
+    let photosToAdd = photos;
+    let fileListToAdd: FileList | null = null;
 
-    if (photosFiles && photosFiles.length) {
-      const data = await uploadNewFiles(photosFiles);
-      if (data) photosToAdd = fileMapper(data, newToy.title);
+    if (files) fileListToAdd = fileListToAddMapper(files, photosToAdd);
+
+    if (fileListToAdd && fileListToAdd.length) {
+      const data = await uploadNewFiles(fileListToAdd);
+      if (data) photosToAdd = fileMapper(data, newToy.title, photos);
     }
 
     if (content === "create") {
-      if (photosToAdd) createToy.mutate({ ...newToy, photos: photosToAdd });
+      if (photos) createToy.mutate({ ...newToy, photos: photosToAdd });
       else createToy.mutate({ ...newToy });
     }
     if (content === "edit") {
-      updateToy.mutate({ ...newToy, photosToAdd });
+      updateToy.mutate({
+        ...newToy,
+        photosToAdd,
+        photosToDelete,
+        photosToUpdate,
+      });
       setCurrentToy(null);
     }
 
-    setPhotosFiles(null);
+    setPhotosToDelete(null);
+    setNewToy(null);
     setCardContent("empty");
     setIsOpen(false);
   };
 
   const closeHandler = () => {
-    setPhotosFiles(null);
+    setPhotosToAdd(null);
     if (content === "create" || content === "selected") {
       setCardContent("empty");
       setIsOpen(false);

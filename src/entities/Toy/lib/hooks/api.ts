@@ -1,7 +1,12 @@
 import { api } from "shared/api/trpc";
 
-export const useGetAllToys = () => {
-  return api.toy.getAll.useQuery();
+export const useCreateToy = () => {
+  const { refetch } = api.toy.getAll.useQuery();
+  return api.toy.create.useMutation({
+    onSuccess: async () => {
+      await refetch();
+    },
+  });
 };
 
 export const useUpdateToy = () => {
@@ -22,11 +27,10 @@ export const useDeleteToy = () => {
   });
 };
 
-export const useCreateToy = () => {
-  const { refetch } = api.toy.getAll.useQuery();
-  return api.toy.create.useMutation({
-    onSuccess: async () => {
-      await refetch();
-    },
-  });
+export const useGetAllToys = () => {
+  return api.toy.getAll.useQuery();
 };
+
+// export const getToys = () => {
+//   return api.toy.get.useQuery();
+// };

@@ -26,7 +26,9 @@ model Toy {
     size        Float?
     description String?  @db.Text
     box         Int?
-    photos      Image[]
+    photos      Image[]  @relation("photos")
+    mainPhoto   Image?   @relation("mainPhoto", fields: [mainPhotoId], references: [id])
+    mainPhotoId String?  @unique
 }
 
 model Image {
@@ -34,8 +36,10 @@ model Image {
     title        String
     url          String
     aspect_ratio Float
-    Toy          Toy?    @relation(fields: [toyId], references: [id])
+    isMain       Boolean @default(false)
+    Toy          Toy?    @relation("photos", fields: [toyId], references: [id])
     toyId        String?
+    MainByToy    Toy?    @relation("mainPhoto")
 }
 
 // Necessary for Next auth
