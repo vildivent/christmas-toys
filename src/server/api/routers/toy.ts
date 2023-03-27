@@ -79,7 +79,7 @@ export const toyRouter = createTRPCRouter({
       });
       const mainPhoto = newToy.photos.find((photo) => photo.isMain);
       if (mainPhoto)
-        await ctx.prisma.toy.update({
+        return await ctx.prisma.toy.update({
           where: { id: newToy.id },
           data: {
             mainPhoto: {
