@@ -8,14 +8,20 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="fixed inset-0 h-[100svh] w-screen">
-      <Image className="object-cover" src="/bg.png" alt="Фон" fill />
+    <>
+      <div className="fixed inset-0 h-[100svh] w-screen landscape:hidden landscape:lg:block">
+        <Image className="object-cover" src="/bg.png" alt="Фон" fill />
 
-      <div className="fixed inset-0 flex flex-col gap-2">
-        <Navbar />
-        <div className="flex-1">{children}</div>
+        <div className="fixed inset-0 flex flex-col gap-2">
+          <Navbar />
+          <div className="flex-1">{children}</div>
+        </div>
       </div>
-    </div>
+      <div className="flex h-[100svh] w-screen items-center justify-center portrait:hidden landscape:lg:hidden">
+        <h1 className="text-3xl">Пожалуста, переверните телефон</h1>
+        <Image src="/rotate.gif" alt="rotate" width={80} height={80} />
+      </div>
+    </>
   );
 };
 
