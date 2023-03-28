@@ -1,3 +1,4 @@
+export type VK = string;
 // import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers/oauth"
 
 // export interface VkProfile {
