@@ -21,7 +21,12 @@ const config = {
     defaultLocale: "ru",
   },
   images: {
-    domains: ["cdn.discordapp.com", "api.skyarhyz.ru"],
+    domains: [
+      "cdn.discordapp.com",
+      "api.skyarhyz.ru",
+      "lh3.googleusercontent.com",
+      "sun2-19.userapi.com",
+    ],
   },
 };
 export default config;
