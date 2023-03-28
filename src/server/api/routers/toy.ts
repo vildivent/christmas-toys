@@ -73,7 +73,7 @@ export const toyRouter = createTRPCRouter({
           size: input.size,
         },
         include: {
-          photos: true,
+          photos: { orderBy: { isMain: "desc" } },
           mainPhoto: true,
         },
       });
@@ -87,7 +87,7 @@ export const toyRouter = createTRPCRouter({
             },
           },
           include: {
-            photos: true,
+            photos: { orderBy: { isMain: "desc" } },
             mainPhoto: true,
           },
         });
@@ -131,7 +131,7 @@ export const toyRouter = createTRPCRouter({
           size: input.size,
         },
         include: {
-          photos: true,
+          photos: { orderBy: { isMain: "desc" } },
           mainPhoto: true,
         },
       });
@@ -147,7 +147,7 @@ export const toyRouter = createTRPCRouter({
           mainPhoto: { connect: { id: mainPhoto.id } },
         },
         include: {
-          photos: true,
+          photos: { orderBy: { isMain: "desc" } },
           mainPhoto: true,
         },
       });
@@ -169,7 +169,8 @@ export const toyRouter = createTRPCRouter({
 
   getAll: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.toy.findMany({
-      include: { photos: true, mainPhoto: true },
+      orderBy: { createdAt: "desc" },
+      include: { photos: { orderBy: { isMain: "desc" } }, mainPhoto: true },
     });
   }),
   get: protectedProcedure
@@ -179,7 +180,7 @@ export const toyRouter = createTRPCRouter({
         return await ctx.prisma.toy.findUnique({
           where: { id: input.id },
           include: {
-            photos: true,
+            photos: { orderBy: { isMain: "desc" } },
             mainPhoto: true,
           },
         });
@@ -187,7 +188,7 @@ export const toyRouter = createTRPCRouter({
       const sample = await ctx.prisma.toy.findMany({
         where: { box: input.box, dates: input.dates, type: input.type },
         include: {
-          photos: true,
+          photos: { orderBy: { isMain: "desc" } },
           mainPhoto: true,
         },
       });

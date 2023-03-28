@@ -25,7 +25,7 @@ const ImageSlider = ({
         spaceBetween={20}
         slidesPerView={1}
         onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
-        onSwiper={(swiper) => setCurrentIndex(swiper.activeIndex)}
+        onSnapIndexChange={() => setCurrentIndex(0)}
         className="relative"
       >
         {photos.map((photo, index) => (
