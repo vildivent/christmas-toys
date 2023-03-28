@@ -18,7 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
         </div>
       </div>
       <div className="flex h-[100svh] w-screen items-center justify-center portrait:hidden landscape:lg:hidden">
-        <h1 className="text-3xl">Пожалуста, переверните телефон</h1>
+        <h1 className="text-3xl">Пожалуста, поверните телефон</h1>
         <Image src="/rotate.gif" alt="rotate" width={80} height={80} />
       </div>
     </>
