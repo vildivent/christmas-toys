@@ -38,14 +38,18 @@ const updateInput = z.object({
   mainPhotoId: z.string().nullish(),
 });
 
-const zodGetInput = {
-  q: z.string().optional(),
-  page: z.number().optional(),
-  id: z.string().optional(),
-  type: z.string().optional(),
-  dates: z.string().optional(),
-  box: z.number().optional(),
-};
+const zodGetInput = z
+  .object({
+    q: z.string().optional(),
+    page: z.number().optional(),
+    id: z.string().optional(),
+    type: z.string().optional(),
+    material: z.string().optional(),
+    dates: z.string().optional(),
+    category: z.string().optional(),
+    box: z.number().optional(),
+  })
+  .optional();
 
 export const toyRouter = createTRPCRouter({
   create: protectedProcedure
@@ -173,26 +177,45 @@ export const toyRouter = createTRPCRouter({
       include: { photos: { orderBy: { isMain: "desc" } }, mainPhoto: true },
     });
   }),
-  get: protectedProcedure
-    .input(z.object(zodGetInput))
-    .query(async ({ ctx, input }) => {
-      if (input.id)
-        return await ctx.prisma.toy.findUnique({
-          where: { id: input.id },
+  get: protectedProcedure.input(zodGetInput).query(async ({ ctx, input }) => {
+    const input_ = {
+      q: input?.q === "" ? undefined : input?.q,
+      page: input?.page ? 1 : input?.page,
+      id: input?.id,
+      type: input?.type === "" ? undefined : input?.type,
+      material: input?.material === "" ? undefined : input?.material,
+      dates: input?.dates === "" ? undefined : input?.dates,
+      category: input?.category === "" ? undefined : input?.category,
+      box: input?.box ? undefined : input?.box,
+    };
+
+    if (input_.id)
+      return [
+        await ctx.prisma.toy.findUnique({
+          where: { id: input_.id },
           include: {
             photos: { orderBy: { isMain: "desc" } },
             mainPhoto: true,
           },
-        });
+        }),
+      ];
 
-      const sample = await ctx.prisma.toy.findMany({
-        where: { box: input.box, dates: input.dates, type: input.type },
-        include: {
-          photos: { orderBy: { isMain: "desc" } },
-          mainPhoto: true,
-        },
-      });
+    const sample = await ctx.prisma.toy.findMany({
+      where: {
+        title: input_?.q,
+        type: input_?.type,
+        material: input_?.material,
+        dates: input_?.dates,
+        category: input_?.category,
+        box: input_?.box,
+      },
 
-      return sample;
-    }),
+      include: {
+        photos: { orderBy: { isMain: "desc" } },
+        mainPhoto: true,
+      },
+    });
+
+    return sample;
+  }),
 });

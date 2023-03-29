@@ -44,7 +44,7 @@ export const NumberInput = ({
       name={id}
       className={className}
       type="text"
-      inputMode="numeric"
+      inputMode="decimal"
       value={value}
       onChange={(e) => {
         e.target.value = mask(e.target.value);
@@ -125,9 +125,18 @@ type Mask = { mask?: (value: string) => string };
 type ID = { id: string };
 type SelectOptions = { options: string[] | number[] };
 
-type SelectInputProps = InputProps<string | number, HTMLSelectElement> &
+type SelectInputProps = InputProps<
+  string | number | undefined,
+  HTMLSelectElement
+> &
   ID &
   SelectOptions;
-type NumberInputProps = InputProps<number, HTMLInputElement> & ID & Mask;
-type TextInputProps = InputProps<string, HTMLInputElement> & ID & Mask;
-type TextAreaProps = InputProps<string, HTMLTextAreaElement> & ID & Mask;
+type NumberInputProps = InputProps<number | undefined, HTMLInputElement> &
+  ID &
+  Mask;
+type TextInputProps = InputProps<string | undefined, HTMLInputElement> &
+  ID &
+  Mask;
+type TextAreaProps = InputProps<string | undefined, HTMLTextAreaElement> &
+  ID &
+  Mask;

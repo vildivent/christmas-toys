@@ -33,6 +33,7 @@ export const datesOptions = [
 ];
 
 export const materialOptions = [
+  "",
   "Стекло",
   "Пластик",
   "Металл",

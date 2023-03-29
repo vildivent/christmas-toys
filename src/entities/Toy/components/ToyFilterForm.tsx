@@ -31,8 +31,8 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
           </div>
 
           <TitleInput
-            value={query?.title || ""}
-            onChange={(e) => setQuery({ ...query, title: e.target.value })}
+            value={query?.q || ""}
+            onChange={(e) => setQuery({ ...query, q: e.target.value })}
           />
         </div>
 
@@ -44,7 +44,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
               <SelectInput
                 id="type"
                 options={materialOptions}
-                value={query?.type || ""}
+                value={query?.type}
                 onChange={(e) => setQuery({ ...query, type: e.target.value })}
               />
             </Label>
@@ -52,7 +52,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
             <Label name="Материал">
               <TextInput
                 id="material"
-                value={query?.material || ""}
+                value={query?.material}
                 onChange={(e) =>
                   setQuery({ ...query, material: e.target.value })
                 }
@@ -63,7 +63,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
               <SelectInput
                 id="dates"
                 options={datesOptions}
-                value={query?.dates || ""}
+                value={query?.dates}
                 onChange={(e) => setQuery({ ...query, dates: e.target.value })}
               />
             </Label>
@@ -71,27 +71,22 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
             <Label name="Категория">
               <TextInput
                 id="category"
-                value={query?.category || ""}
+                value={query?.category}
                 onChange={(e) =>
                   setQuery({ ...query, category: e.target.value })
                 }
               />
             </Label>
 
-            <Label name="Высота (см)">
-              <NumberInput
-                id="size"
-                value={query?.size || 0}
-                onChange={(e) => setQuery({ ...query, size: +e.target.value })}
-              />
-            </Label>
-
             <Label name="Коробка">
               <NumberInput
                 id="box"
-                value={query?.box || 0}
+                value={query?.box}
                 onChange={(e) =>
-                  setQuery({ ...query, box: Number(e.target.value) })
+                  setQuery({
+                    ...query,
+                    box: e.target.value === "" ? undefined : +e.target.value,
+                  })
                 }
               />
             </Label>

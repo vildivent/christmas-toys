@@ -1,12 +1,16 @@
 import Image from "next/image";
-import { useCurrentToyStore, useNewToyStore } from "entities/Toy/lib/store";
+import {
+  useCurrentToyStore,
+  useNewToyStore,
+  useToysQuery,
+} from "entities/Toy/lib/store";
 import { useCardStore } from "widgets/ToyCard/lib/store";
 
 import ToyMainCard from "entities/Toy/components/ToyMainCard";
 import type { ToyItem } from "shared/types";
 import { AddBtn } from "shared/ui/buttons";
 import { exampleToy } from "entities/Toy/constants";
-import { useGetAllToys } from "entities/Toy/lib/hooks/api";
+import { useGetToys } from "entities/Toy/lib/hooks/api";
 import { useFilterCardStore } from "widgets/ToyFilter/lib/store";
 
 const ToysList = () => {
@@ -16,7 +20,9 @@ const ToysList = () => {
   const { setNewToy } = useNewToyStore();
   const { setCurrentToy } = useCurrentToyStore();
 
-  const { data, isLoading } = useGetAllToys();
+  const { query } = useToysQuery();
+
+  const { data, isLoading } = useGetToys(query);
 
   const btnClickHandler = () => {
     setNewToy(exampleToy);
@@ -46,13 +52,16 @@ const ToysList = () => {
         </div>
 
         {data &&
-          data.map((toyItem) => (
-            <ToyMainCard
-              key={toyItem.id}
-              toyItem={toyItem}
-              onClick={() => itemClickHandler(toyItem)}
-            />
-          ))}
+          data.map((toyItem) => {
+            if (toyItem)
+              return (
+                <ToyMainCard
+                  key={toyItem.id}
+                  toyItem={toyItem}
+                  onClick={() => itemClickHandler(toyItem)}
+                />
+              );
+          })}
       </div>
       <div />
     </div>

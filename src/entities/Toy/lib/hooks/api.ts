@@ -1,3 +1,4 @@
+import type { ToyQuery } from "entities/Toy/types";
 import { api } from "shared/api/trpc";
 
 export const useCreateToy = () => {
@@ -31,6 +32,7 @@ export const useGetAllToys = () => {
   return api.toy.getAll.useQuery();
 };
 
-// export const getToys = () => {
-//   return api.toy.get.useQuery();
-// };
+export const useGetToys = (query: ToyQuery | null) => {
+  if (query) return api.toy.get.useQuery(query);
+  return api.toy.get.useQuery();
+};
