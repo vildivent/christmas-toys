@@ -49,7 +49,7 @@ const zodGetInput = z
     category: z.string().optional(),
     box: z.number().optional(),
   })
-  .optional();
+  .nullish();
 
 export const toyRouter = createTRPCRouter({
   create: protectedProcedure

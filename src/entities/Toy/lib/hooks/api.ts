@@ -1,8 +1,10 @@
 import type { ToyQuery } from "entities/Toy/types";
 import { api } from "shared/api/trpc";
+import { useToysQuery } from "../store";
 
 export const useCreateToy = () => {
-  const { refetch } = api.toy.getAll.useQuery();
+  const { query } = useToysQuery();
+  const { refetch } = api.toy.get.useQuery(query);
   return api.toy.create.useMutation({
     onSuccess: async () => {
       await refetch();
@@ -11,7 +13,8 @@ export const useCreateToy = () => {
 };
 
 export const useUpdateToy = () => {
-  const { refetch } = api.toy.getAll.useQuery();
+  const { query } = useToysQuery();
+  const { refetch } = api.toy.get.useQuery(query);
   return api.toy.update.useMutation({
     onSuccess: async () => {
       await refetch();
@@ -20,7 +23,8 @@ export const useUpdateToy = () => {
 };
 
 export const useDeleteToy = () => {
-  const { refetch } = api.toy.getAll.useQuery();
+  const { query } = useToysQuery();
+  const { refetch } = api.toy.get.useQuery(query);
   return api.toy.delete.useMutation({
     onSuccess: async () => {
       await refetch();
