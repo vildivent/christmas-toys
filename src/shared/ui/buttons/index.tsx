@@ -158,7 +158,7 @@ export const LoginBtn = ({
 
 export const RedBtn = ({
   onClick,
-  className = `${colorBtnStyle} bg-red-600`,
+  className = `${colorBtnStyle} bg-red-600 hover:bg-red-500`,
   disabled,
   children = "Войти",
 }: BtnProps & { children?: ReactNode }) => {
@@ -171,7 +171,7 @@ export const RedBtn = ({
 
 export const WhiteBtn = ({
   onClick,
-  className = `${colorBtnStyle} bg-white text-gray-2`,
+  className = `${colorBtnStyle} bg-white hover:bg-gray-300 text-gray-2`,
   disabled,
   children = "Войти",
 }: BtnProps & { children?: ReactNode }) => {
