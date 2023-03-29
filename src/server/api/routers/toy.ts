@@ -179,7 +179,7 @@ export const toyRouter = createTRPCRouter({
   }),
   get: protectedProcedure.input(zodGetInput).query(async ({ ctx, input }) => {
     const input_ = {
-      q: input?.q === "" ? undefined : input?.q,
+      q: input?.q,
       page: input?.page ? 1 : input?.page,
       id: input?.id,
       type: input?.type === "" ? undefined : input?.type,
@@ -202,7 +202,10 @@ export const toyRouter = createTRPCRouter({
 
     const sample = await ctx.prisma.toy.findMany({
       where: {
-        title: input_?.q,
+        OR: [
+          { title: { contains: input_?.q || "", mode: "insensitive" } },
+          { description: { contains: input_?.q || "", mode: "insensitive" } },
+        ],
         type: input_?.type,
         material: input_?.material,
         dates: input_?.dates,
