@@ -209,11 +209,8 @@ export const toyRouter = createTRPCRouter({
         category: input_?.category,
         box: input_?.box,
       },
-
-      include: {
-        photos: { orderBy: { isMain: "desc" } },
-        mainPhoto: true,
-      },
+      orderBy: { createdAt: "desc" },
+      include: { photos: { orderBy: { isMain: "desc" } }, mainPhoto: true },
     });
 
     return sample;
