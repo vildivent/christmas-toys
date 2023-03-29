@@ -19,7 +19,8 @@ import { RiFilterOffLine } from "react-icons/ri";
 import { theme } from "shared/constants";
 
 const outlineBtnStyle = `text-2xl transition ${theme.mainColor.tw.hover.text}`;
-const loginBtnStyle = `text-md h-auto rounded-lg ${theme.secondaryColor.tw.bg} px-5 py-2 font-h text-white no-underline transition ${theme.mainColor.tw.hover.bg}`;
+const colorBtnStyle = `text-md h-auto rounded-lg px-5 py-2 font-h text-white no-underline transition`;
+const loginBtnStyle = `${colorBtnStyle} ${theme.secondaryColor.tw.bg} ${theme.mainColor.tw.hover.bg}`;
 
 export const AddBtn = ({
   onClick,
@@ -145,6 +146,32 @@ export const EditBtn = ({
 export const LoginBtn = ({
   onClick,
   className = loginBtnStyle,
+  disabled,
+  children = "Войти",
+}: BtnProps & { children?: ReactNode }) => {
+  return (
+    <button className={className} onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  );
+};
+
+export const RedBtn = ({
+  onClick,
+  className = `${colorBtnStyle} bg-red-600`,
+  disabled,
+  children = "Войти",
+}: BtnProps & { children?: ReactNode }) => {
+  return (
+    <button className={className} onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  );
+};
+
+export const WhiteBtn = ({
+  onClick,
+  className = `${colorBtnStyle} bg-white text-gray-2`,
   disabled,
   children = "Войти",
 }: BtnProps & { children?: ReactNode }) => {

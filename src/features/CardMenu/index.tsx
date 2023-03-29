@@ -1,7 +1,14 @@
-import type { MouseEventHandler, RefObject } from "react";
+import { type MouseEventHandler, type RefObject, useState } from "react";
 import { useCardStore } from "widgets/ToyCard/lib/store";
 import { type ToyCardState } from "entities/Toy/types";
-import { CheckBtn, CloseBtn, DeleteBtn, EditBtn } from "shared/ui/buttons";
+import {
+  CheckBtn,
+  CloseBtn,
+  DeleteBtn,
+  EditBtn,
+  RedBtn,
+  WhiteBtn,
+} from "shared/ui/buttons";
 import {
   useCreateToy,
   useDeleteToy,
@@ -15,6 +22,7 @@ import {
 import { fileMapper } from "./lib/fileMapper";
 import { uploadNewFiles } from "./api";
 import { fileListToAddMapper } from "./lib/fileListToAddMapper";
+import Modal from "shared/ui/Modal";
 
 type CardMenuProps = {
   hiddenFileInput: RefObject<HTMLInputElement>;
@@ -122,6 +130,7 @@ function CardMenuAnimations({
   checkHandler,
   closeHandler,
 }: CardMenuAnimationsProps) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="m-5 flex justify-end pr-2 text-2xl">
       {/* Delete */}
@@ -132,8 +141,30 @@ function CardMenuAnimations({
             : "ml-5"
         }`}
       >
-        <DeleteBtn onClick={deleteHandler} disabled={content !== "edit"} />
+        <DeleteBtn
+          onClick={() => setIsOpen(true)}
+          disabled={content !== "edit"}
+        />
       </div>
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} padding={true}>
+        <div className="flex flex-col justify-center gap-5 p-3">
+          <h2 className="text-center font-h text-lg">
+            Вы действительно хотите удалить ВСЮ игрушку целиком, включая все
+            фотографии?
+          </h2>
+          <div className="flex justify-center gap-10">
+            <RedBtn
+              onClick={(e) => {
+                deleteHandler(e);
+                setIsOpen(false);
+              }}
+            >
+              Удалить
+            </RedBtn>
+            <WhiteBtn onClick={() => setIsOpen(false)}>Нет</WhiteBtn>
+          </div>
+        </div>
+      </Modal>
 
       {/*Edit */}
       <div
@@ -159,7 +190,6 @@ function CardMenuAnimations({
           disabled={content !== "edit" && content !== "create"}
         />
       </div>
-
       {/*Close */}
       <div
         className={`transition ${
