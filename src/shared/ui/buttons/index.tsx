@@ -19,7 +19,7 @@ import { RiFilterOffLine } from "react-icons/ri";
 import { theme } from "shared/constants";
 
 const outlineBtnStyle = `text-2xl transition ${theme.mainColor.tw.hover.text}`;
-const colorBtnStyle = `text-md h-auto rounded-lg px-5 py-2 font-h text-white no-underline transition`;
+const colorBtnStyle = `text-md h-auto rounded-lg px-5 py-2 font-h no-underline transition`;
 const loginBtnStyle = `${colorBtnStyle} ${theme.secondaryColor.tw.bg} ${theme.mainColor.tw.hover.bg}`;
 
 export const AddBtn = ({
@@ -160,7 +160,7 @@ export const RedBtn = ({
   onClick,
   className = `${colorBtnStyle} bg-red-600 hover:bg-red-500`,
   disabled,
-  children = "Войти",
+  children = "Нет",
 }: BtnProps & { children?: ReactNode }) => {
   return (
     <button className={className} onClick={onClick} disabled={disabled}>
@@ -173,7 +173,7 @@ export const WhiteBtn = ({
   onClick,
   className = `${colorBtnStyle} bg-white hover:bg-gray-300 text-black`,
   disabled,
-  children = "Войти",
+  children = "Нет",
 }: BtnProps & { children?: ReactNode }) => {
   return (
     <button className={className} onClick={onClick} disabled={disabled}>
