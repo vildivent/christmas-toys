@@ -1,7 +1,8 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { IoClose } from "react-icons/io5";
+import { AiOutlineClose } from "react-icons/ai";
+import { CloseBtn } from "./buttons";
 
 const Modal = ({
   children,
@@ -34,16 +35,13 @@ const Modal = ({
     >
       <div
         className={`${isOpen ? "scale-100" : "scale-75"} ${
-          padding ? "p-10" : "p-0"
+          padding ? "px-5 py-12 md:p-12" : "p-0"
         } relative bg-gray-2 shadow-lg transition-all duration-200 md:max-w-[50%]`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={() => setIsOpen(false)}
-          className="hover:text-blue-3 absolute top-5 right-5 cursor-pointer text-3xl transition-transform duration-300 hover:rotate-90"
-        >
-          <IoClose />
-        </button>
+        <div className="absolute top-0 right-0 flex items-center justify-center p-5">
+          <CloseBtn onClick={() => setIsOpen(false)} />
+        </div>
 
         {children}
       </div>

@@ -147,7 +147,7 @@ function CardMenuAnimations({
         />
       </div>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} padding={true}>
-        <div className="flex flex-col justify-center gap-5 p-3">
+        <div className="flex flex-col justify-center gap-5">
           <h2 className="text-center font-h text-lg">
             Вы действительно хотите удалить ВСЮ игрушку целиком, включая все
             фотографии?
