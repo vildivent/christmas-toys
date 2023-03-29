@@ -1,9 +1,11 @@
 import User from "../../entities/User/components/User";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { LogoutBtn, SearchBtn, MenuBtn, LoginBtn } from "shared/ui/buttons";
+import { useFilterCardStore } from "widgets/ToyFilter/lib/store";
 
 const Navbar = () => {
   const { data: sessionData } = useSession();
+  const { setIsOpen } = useFilterCardStore();
 
   return (
     <nav
@@ -11,12 +13,12 @@ const Navbar = () => {
         sessionData?.user.role === "Admin" ? "justify-between" : "justify-end"
       }`}
     >
-      {sessionData?.user.role === "Admin" && (
-        <div className="flex gap-5">
-          <MenuBtn onClick={() => null} />
-          <SearchBtn onClick={() => null} />
-        </div>
-      )}
+      <div className="flex gap-5">
+        <MenuBtn onClick={() => null} />
+        {sessionData?.user.role === "Admin" && (
+          <SearchBtn onClick={() => setIsOpen((state) => !state)} />
+        )}
+      </div>
 
       <div className="flex justify-center gap-5">
         <User />

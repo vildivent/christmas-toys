@@ -15,6 +15,7 @@ import {
   MdOutlineNavigateBefore,
   MdOutlineNavigateNext,
 } from "react-icons/md";
+import { RiFilterOffLine } from "react-icons/ri";
 import { theme } from "shared/constants";
 
 const outlineBtnStyle = `text-2xl transition ${theme.mainColor.tw.hover.text}`;
@@ -24,7 +25,7 @@ export const AddBtn = ({
   onClick,
   size = "4rem",
   title = "Добавить",
-  titleClassName = "font-h text-xl transition",
+  titleClassName = "font-h text-2xl transition",
   disabled,
   className,
 }: AddBtnProps) => {
@@ -101,6 +102,18 @@ export const CheckBtn = ({
   return (
     <button onClick={onClick} className={className} disabled={disabled}>
       <AiOutlineCheck />
+    </button>
+  );
+};
+
+export const ClearFilterBtn = ({
+  onClick,
+  className = outlineBtnStyle,
+  disabled,
+}: BtnProps) => {
+  return (
+    <button onClick={onClick} className={className} disabled={disabled}>
+      <RiFilterOffLine />
     </button>
   );
 };

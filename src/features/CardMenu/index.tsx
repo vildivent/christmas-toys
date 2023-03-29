@@ -10,7 +10,7 @@ import {
 import {
   useCurrentToyStore,
   useNewToyStore,
-  useToysPhotosStore,
+  useDeletePhotosStore,
 } from "entities/Toy/lib/store";
 import { fileMapper } from "./lib/fileMapper";
 import { uploadNewFiles } from "./api";
@@ -26,8 +26,8 @@ const CardMenu = ({ hiddenFileInput }: CardMenuProps) => {
   const { newToy, setNewToy } = useNewToyStore();
   const { currentToy, setCurrentToy } = useCurrentToyStore();
 
-  const photosToDelete = useToysPhotosStore((state) => state.photosToDelete);
-  const { setPhotosToAdd, setPhotosToDelete } = useToysPhotosStore();
+  const photosToDelete = useDeletePhotosStore((state) => state.photosToDelete);
+  const { setPhotosToDelete } = useDeletePhotosStore();
 
   const createToy = useCreateToy();
   const deleteToy = useDeleteToy();
@@ -87,7 +87,6 @@ const CardMenu = ({ hiddenFileInput }: CardMenuProps) => {
   };
 
   const closeHandler = () => {
-    setPhotosToAdd(null);
     if (content === "create" || content === "selected") {
       setCardContent("empty");
       setIsOpen(false);

@@ -7,9 +7,11 @@ import type { ToyItem } from "shared/types";
 import { AddBtn } from "shared/ui/buttons";
 import { exampleToy } from "entities/Toy/constants";
 import { useGetAllToys } from "entities/Toy/lib/hooks/api";
+import { useFilterCardStore } from "widgets/ToyFilter/lib/store";
 
 const ToysList = () => {
   const { setIsOpen, setCardContent } = useCardStore();
+  const setFilterIsOpen = useFilterCardStore((state) => state.setIsOpen);
 
   const { setNewToy } = useNewToyStore();
   const { setCurrentToy } = useCurrentToyStore();
@@ -21,12 +23,15 @@ const ToysList = () => {
 
     setCardContent("create");
     setIsOpen(true);
+    setFilterIsOpen(false);
   };
 
   const itemClickHandler = (toyItem: ToyItem) => {
     setCurrentToy(toyItem);
     setCardContent("selected");
+
     setIsOpen(true);
+    setFilterIsOpen(false);
   };
 
   return (

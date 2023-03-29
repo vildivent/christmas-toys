@@ -5,7 +5,7 @@ import ToyEditForm, { type ToyTmp } from "entities/Toy/components/ToyEditForm";
 import {
   useCurrentToyStore,
   useNewToyStore,
-  useToysPhotosStore,
+  useDeletePhotosStore,
 } from "entities/Toy/lib/store";
 import CardMenu from "features/CardMenu";
 import { useCardStore } from "widgets/ToyCard/lib/store";
@@ -19,7 +19,7 @@ const ToyCard = () => {
   const { newToy, setNewToy } = useNewToyStore();
   const { currentToy } = useCurrentToyStore();
 
-  const { photosToDelete, setPhotosToDelete } = useToysPhotosStore();
+  const { photosToDelete, setPhotosToDelete } = useDeletePhotosStore();
 
   const deleteImgHandler = (id: string) => {
     if (!newToy?.photos) return;

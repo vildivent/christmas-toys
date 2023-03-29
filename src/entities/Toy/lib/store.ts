@@ -1,5 +1,6 @@
 import { type ToyItem } from "shared/types";
 import { create } from "zustand";
+import type { ToyQuery } from "../types";
 
 export const useNewToyStore = create<NewToyState>((set) => ({
   newToy: null,
@@ -11,12 +12,14 @@ export const useCurrentToyStore = create<CurrentToyState>((set) => ({
   setCurrentToy: (currentToy) => set({ currentToy }),
 }));
 
-export const useToysPhotosStore = create<ToysPhotosState>((set) => ({
+export const useDeletePhotosStore = create<DeletePhotosState>((set) => ({
   photosToDelete: null,
-  photosToAdd: null,
-
   setPhotosToDelete: (id) => set((state) => ({ ...state, photosToDelete: id })),
-  setPhotosToAdd: (files) => set((state) => ({ ...state, photosFiles: files })),
+}));
+
+export const useToysQuery = create<ToysQueryState>((set) => ({
+  query: null,
+  setQuery: (query) => set({ query }),
 }));
 
 type NewToyState = {
@@ -29,10 +32,12 @@ type CurrentToyState = {
   setCurrentToy: (currentToy: ToyItem | null) => void;
 };
 
-type ToysPhotosState = {
+type DeletePhotosState = {
   photosToDelete: string[] | null;
-  photosToAdd: FileList | null;
-
   setPhotosToDelete: (id: string[] | null) => void;
-  setPhotosToAdd: (files: FileList | null) => void;
+};
+
+type ToysQueryState = {
+  query: ToyQuery | null;
+  setQuery: (newQuery: ToyQuery | null) => void;
 };

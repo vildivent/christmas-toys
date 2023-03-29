@@ -1,11 +1,11 @@
 import { type ChangeEventHandler } from "react";
 import { theme } from "shared/constants";
 
-const commonInputStyle = `rounded-md border border-gray-500 bg-gray-2 text-white outline-none ${theme.mainColor.tw.focus.border}`;
+const commonInputStyle = `py-1 rounded-md border border-gray-500 bg-gray-2 text-white outline-none ${theme.mainColor.tw.focus.border}`;
 
 const inputStyle = `${commonInputStyle} px-2 font-text`;
 const textInputStyle = `${inputStyle} h-40 resize-none`;
-const titleInputStyle = `${commonInputStyle} px-5 text-center font-h text-3xl mb-3 w-full`;
+const titleInputStyle = `${commonInputStyle} px-5 text-center font-h text-2xl mb-3 w-full`;
 
 export const SelectInput = ({
   id,

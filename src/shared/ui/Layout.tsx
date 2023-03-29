@@ -14,7 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
 
         <div className="fixed inset-0 flex flex-col gap-2">
           <Navbar />
-          <div className="flex-1">{children}</div>
+          <div className="relative flex-1">{children}</div>
         </div>
       </div>
       <div className="flex h-[100svh] w-screen items-center justify-center portrait:hidden landscape:lg:hidden">
