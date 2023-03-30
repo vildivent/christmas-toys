@@ -44,7 +44,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
               <SelectInput
                 id="type"
                 options={materialOptions}
-                value={query?.type}
+                value={query?.type || ""}
                 onChange={(e) => setQuery({ ...query, type: e.target.value })}
               />
             </Label>
@@ -52,7 +52,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
             <Label name="Материал">
               <TextInput
                 id="material"
-                value={query?.material}
+                value={query?.material || ""}
                 onChange={(e) =>
                   setQuery({ ...query, material: e.target.value })
                 }
@@ -63,7 +63,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
               <SelectInput
                 id="dates"
                 options={datesOptions}
-                value={query?.dates}
+                value={query?.dates || ""}
                 onChange={(e) => setQuery({ ...query, dates: e.target.value })}
               />
             </Label>
@@ -71,7 +71,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
             <Label name="Категория">
               <TextInput
                 id="category"
-                value={query?.category}
+                value={query?.category || ""}
                 onChange={(e) =>
                   setQuery({ ...query, category: e.target.value })
                 }

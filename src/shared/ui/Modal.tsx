@@ -1,7 +1,6 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { AiOutlineClose } from "react-icons/ai";
 import { CloseBtn } from "./buttons";
 
 const Modal = ({

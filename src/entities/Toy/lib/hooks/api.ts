@@ -32,10 +32,6 @@ export const useDeleteToy = () => {
   });
 };
 
-export const useGetAllToys = () => {
-  return api.toy.getAll.useQuery();
-};
-
 export const useGetToys = (query: ToyQuery | null) => {
   if (query) return api.toy.get.useQuery(query);
   return api.toy.get.useQuery();

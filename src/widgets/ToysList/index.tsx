@@ -10,8 +10,8 @@ import ToyMainCard from "entities/Toy/components/ToyMainCard";
 import type { ToyItem } from "shared/types";
 import { AddBtn } from "shared/ui/buttons";
 import { exampleToy } from "entities/Toy/constants";
-import { useGetToys } from "entities/Toy/lib/hooks/api";
 import { useFilterCardStore } from "widgets/ToyFilter/lib/store";
+import { api } from "shared/api/trpc";
 
 const ToysList = () => {
   const { setIsOpen, setCardContent } = useCardStore();
@@ -22,10 +22,17 @@ const ToysList = () => {
 
   const { query } = useToysQuery();
 
-  const { data, isLoading } = useGetToys(query);
+  const { data, isLoading } = api.toy.get.useQuery(query);
 
   const btnClickHandler = () => {
-    setNewToy(exampleToy);
+    setNewToy({
+      ...exampleToy,
+      type: query?.type || exampleToy.type,
+      material: query?.material || exampleToy.material,
+      dates: query?.dates || exampleToy.dates,
+      category: query?.category || exampleToy.category,
+      box: query?.box || exampleToy.box,
+    });
 
     setCardContent("create");
     setIsOpen(true);

@@ -42,7 +42,6 @@ const zodGetInput = z
   .object({
     q: z.string().optional(),
     page: z.number().optional(),
-    id: z.string().optional(),
     type: z.string().optional(),
     material: z.string().optional(),
     dates: z.string().optional(),
@@ -177,45 +176,31 @@ export const toyRouter = createTRPCRouter({
       include: { photos: { orderBy: { isMain: "desc" } }, mainPhoto: true },
     });
   }),
+
+  getById: protectedProcedure
+    .input(z.object({ id: z.string().optional() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.toy.findUnique({
+        where: { id: input.id },
+        include: { photos: { orderBy: { isMain: "desc" } }, mainPhoto: true },
+      });
+    }),
+
   get: protectedProcedure.input(zodGetInput).query(async ({ ctx, input }) => {
-    const input_ = {
-      q: input?.q,
-      page: input?.page ? 1 : input?.page,
-      id: input?.id,
-      type: input?.type === "" ? undefined : input?.type,
-      material: input?.material === "" ? undefined : input?.material,
-      dates: input?.dates === "" ? undefined : input?.dates,
-      category: input?.category === "" ? undefined : input?.category,
-      box: input?.box ? undefined : input?.box,
-    };
-
-    if (input_.id)
-      return [
-        await ctx.prisma.toy.findUnique({
-          where: { id: input_.id },
-          include: {
-            photos: { orderBy: { isMain: "desc" } },
-            mainPhoto: true,
-          },
-        }),
-      ];
-
-    const sample = await ctx.prisma.toy.findMany({
+    return await ctx.prisma.toy.findMany({
       where: {
         OR: [
-          { title: { contains: input_?.q || "", mode: "insensitive" } },
-          { description: { contains: input_?.q || "", mode: "insensitive" } },
+          { title: { contains: input?.q || "", mode: "insensitive" } },
+          { description: { contains: input?.q || "", mode: "insensitive" } },
         ],
-        type: { contains: input_?.type || "", mode: "insensitive" },
-        material: { contains: input_?.material || "", mode: "insensitive" },
-        dates: { contains: input_?.dates || "", mode: "insensitive" },
-        category: { contains: input_?.category || "", mode: "insensitive" },
-        box: input_?.box,
+        type: { contains: input?.type || "", mode: "insensitive" },
+        material: { contains: input?.material || "", mode: "insensitive" },
+        dates: { contains: input?.dates || "", mode: "insensitive" },
+        category: { contains: input?.category || "", mode: "insensitive" },
+        box: input?.box,
       },
       orderBy: { createdAt: "desc" },
       include: { photos: { orderBy: { isMain: "desc" } }, mainPhoto: true },
     });
-
-    return sample;
   }),
 });

@@ -10,19 +10,16 @@ import {
   WhiteBtn,
 } from "shared/ui/buttons";
 import {
-  useCreateToy,
-  useDeleteToy,
-  useUpdateToy,
-} from "entities/Toy/lib/hooks/api";
-import {
   useCurrentToyStore,
   useNewToyStore,
   useDeletePhotosStore,
+  useToysQuery,
 } from "entities/Toy/lib/store";
 import { fileMapper } from "./lib/fileMapper";
 import { uploadNewFiles } from "./api";
 import { fileListToAddMapper } from "./lib/fileListToAddMapper";
 import Modal from "shared/ui/Modal";
+import { api } from "shared/api/trpc";
 
 type CardMenuProps = {
   hiddenFileInput: RefObject<HTMLInputElement>;
@@ -37,9 +34,25 @@ const CardMenu = ({ hiddenFileInput }: CardMenuProps) => {
   const photosToDelete = useDeletePhotosStore((state) => state.photosToDelete);
   const { setPhotosToDelete } = useDeletePhotosStore();
 
-  const createToy = useCreateToy();
-  const deleteToy = useDeleteToy();
-  const updateToy = useUpdateToy();
+  const { query } = useToysQuery();
+
+  const ctx = api.useContext();
+
+  const createToy = api.toy.create.useMutation({
+    onSuccess() {
+      void ctx.toy.get.invalidate(query);
+    },
+  });
+  const deleteToy = api.toy.delete.useMutation({
+    onSuccess() {
+      void ctx.toy.get.invalidate(query);
+    },
+  });
+  const updateToy = api.toy.update.useMutation({
+    onSuccess() {
+      void ctx.toy.get.invalidate(query);
+    },
+  });
 
   const deleteHandler = () => {
     if (content !== "edit") return;
