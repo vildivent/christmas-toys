@@ -56,7 +56,7 @@ const ToysList = () => {
 
   return (
     <div className="flex h-[calc(100svh-4rem)] flex-col bg-gray-2/80 md:w-[65vw]">
-      <div className="flex w-full flex-wrap justify-center gap-3 overflow-auto p-5 md:gap-5">
+      <div className="flex w-full flex-wrap justify-center gap-3 overflow-auto p-3 md:gap-5 md:p-5">
         <div className="flex h-36 w-40 flex-col items-center justify-center">
           {isLoading ? (
             <Image src="/loading.svg" width={50} height={50} alt="Загрузка" />
