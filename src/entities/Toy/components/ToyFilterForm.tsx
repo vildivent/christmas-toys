@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import {
   NumberInput,
   SelectInput,
@@ -32,7 +32,12 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
 
           <TitleInput
             value={query?.q || ""}
-            onChange={(e) => setQuery({ ...query, q: e.target.value })}
+            onChange={(e) =>
+              setQuery({
+                ...query,
+                q: e.target.value,
+              })
+            }
           />
         </div>
 
@@ -45,7 +50,12 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
                 id="type"
                 options={materialOptions}
                 value={query?.type || ""}
-                onChange={(e) => setQuery({ ...query, type: e.target.value })}
+                onChange={(e) =>
+                  setQuery({
+                    ...query,
+                    type: e.target.value,
+                  })
+                }
               />
             </Label>
 
@@ -54,7 +64,10 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
                 id="material"
                 value={query?.material || ""}
                 onChange={(e) =>
-                  setQuery({ ...query, material: e.target.value })
+                  setQuery({
+                    ...query,
+                    material: e.target.value,
+                  })
                 }
               />
             </Label>
@@ -64,7 +77,12 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
                 id="dates"
                 options={datesOptions}
                 value={query?.dates || ""}
-                onChange={(e) => setQuery({ ...query, dates: e.target.value })}
+                onChange={(e) =>
+                  setQuery({
+                    ...query,
+                    dates: e.target.value,
+                  })
+                }
               />
             </Label>
 
@@ -73,7 +91,10 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
                 id="category"
                 value={query?.category || ""}
                 onChange={(e) =>
-                  setQuery({ ...query, category: e.target.value })
+                  setQuery({
+                    ...query,
+                    category: e.target.value,
+                  })
                 }
               />
             </Label>
@@ -85,7 +106,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
                 onChange={(e) =>
                   setQuery({
                     ...query,
-                    box: e.target.value === "" ? undefined : +e.target.value,
+                    box: +e.target.value,
                   })
                 }
               />

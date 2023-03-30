@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import Image from "next/image";
 import {
   useCurrentToyStore,
   useNewToyStore,
-  useToysQuery,
+  useToysNumberStore,
+  useToysQueryStore,
 } from "entities/Toy/lib/store";
 import { useCardStore } from "widgets/ToyCard/lib/store";
 
@@ -20,9 +22,14 @@ const ToysList = () => {
   const { setNewToy } = useNewToyStore();
   const { setCurrentToy } = useCurrentToyStore();
 
-  const { query } = useToysQuery();
+  const { query } = useToysQueryStore();
+  const { setToysNumber } = useToysNumberStore();
 
   const { data, isLoading } = api.toy.get.useQuery(query);
+
+  useEffect(() => {
+    if (!isLoading) setToysNumber(data?.length || null);
+  }, [data, setToysNumber, isLoading]);
 
   const btnClickHandler = () => {
     setNewToy({

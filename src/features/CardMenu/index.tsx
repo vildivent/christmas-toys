@@ -13,7 +13,7 @@ import {
   useCurrentToyStore,
   useNewToyStore,
   useDeletePhotosStore,
-  useToysQuery,
+  useToysQueryStore,
 } from "entities/Toy/lib/store";
 import { fileMapper } from "./lib/fileMapper";
 import { uploadNewFiles } from "./api";
@@ -34,7 +34,7 @@ const CardMenu = ({ hiddenFileInput }: CardMenuProps) => {
   const photosToDelete = useDeletePhotosStore((state) => state.photosToDelete);
   const { setPhotosToDelete } = useDeletePhotosStore();
 
-  const { query } = useToysQuery();
+  const { query } = useToysQueryStore();
 
   const ctx = api.useContext();
 

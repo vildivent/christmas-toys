@@ -1,11 +1,11 @@
-import { useToysQuery } from "entities/Toy/lib/store";
+import { useToysQueryStore } from "entities/Toy/lib/store";
 import { ClearFilterBtn, CloseBtn } from "shared/ui/buttons";
 import { useFilterCardStore } from "widgets/ToyFilter/lib/store";
 
 const FilterMenu = () => {
   const { setIsOpen } = useFilterCardStore();
 
-  const { setQuery } = useToysQuery();
+  const { setQuery } = useToysQueryStore();
 
   const resetHandler = () => setQuery(null);
   const closeHandler = () => setIsOpen(false);

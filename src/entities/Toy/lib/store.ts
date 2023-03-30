@@ -17,9 +17,14 @@ export const useDeletePhotosStore = create<DeletePhotosState>((set) => ({
   setPhotosToDelete: (id) => set((state) => ({ ...state, photosToDelete: id })),
 }));
 
-export const useToysQuery = create<ToysQueryState>((set) => ({
+export const useToysQueryStore = create<ToysQueryState>((set) => ({
   query: null,
   setQuery: (query) => set({ query }),
+}));
+
+export const useToysNumberStore = create<ToysNumberState>((set) => ({
+  toysNumber: null,
+  setToysNumber: (newNumber) => set({ toysNumber: newNumber }),
 }));
 
 type NewToyState = {
@@ -40,4 +45,8 @@ type DeletePhotosState = {
 type ToysQueryState = {
   query: ToyQuery | null;
   setQuery: (newQuery: ToyQuery | null) => void;
+};
+type ToysNumberState = {
+  toysNumber: number | null;
+  setToysNumber: (newNumber: number | null) => void;
 };
