@@ -15,15 +15,15 @@ const Navbar = () => {
   const filerIsOn = useFilterIsOn(query);
 
   return (
-    <nav className="flex w-full items-center justify-between bg-gray-2/80 px-5 py-2">
-      <div className="flex gap-5">
+    <nav className="flex w-full items-center justify-between bg-gray-2/80 px-2 py-2 md:px-5">
+      <div className="flex gap-2">
         <MenuBtn onClick={() => null} />
         {sessionData?.user.role === "Admin" && (
-          <div className="flex items-center">
+          <div className="relative flex items-center gap-4">
             <SearchBtn onClick={() => setIsOpen((state) => !state)} />
 
             <AiOutlineExclamation
-              className={`translate-x-[-10px] translate-y-[-5px] text-lg text-red-500 ${
+              className={`absolute top-1 right-7 text-lg text-red-500 ${
                 filerIsOn ? "" : "opacity-0"
               }`}
             />
@@ -32,7 +32,7 @@ const Navbar = () => {
         )}
       </div>
 
-      <div className="flex justify-center gap-5">
+      <div className="flex justify-center gap-2">
         <User />
         {sessionData ? (
           <LogoutBtn onClick={() => void signOut()} />
