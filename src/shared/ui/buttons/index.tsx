@@ -18,7 +18,7 @@ import {
 import { RiFilterOffLine } from "react-icons/ri";
 import { theme } from "shared/constants";
 
-const outlineBtnStyle = `text-2xl transition ${theme.mainColor.tw.hover.text}`;
+const outlineBtnStyle = `text-2xl transition p-2 ${theme.mainColor.tw.hover.text}`;
 const colorBtnStyle = `text-md h-auto rounded-lg px-5 py-2 font-h no-underline transition`;
 const loginBtnStyle = `${colorBtnStyle} ${theme.secondaryColor.tw.bg} ${theme.mainColor.tw.hover.bg}`;
 

@@ -17,13 +17,13 @@ const ToyMainCard = ({
 }: ToyMainCardProps) => {
   return (
     <div
-      className="relative cursor-pointer bg-gray-1 transition hover:shadow-lg hover:shadow-gray-500"
+      className="relative cursor-pointer rounded-sm bg-gray-1 transition hover:shadow-lg hover:shadow-gray-500"
       style={{ height, width }}
       onClick={onClick}
     >
       {toyItem.mainPhoto && (
         <Image
-          className="object-cover"
+          className="rounded-sm object-cover"
           src={toyItem.mainPhoto.url}
           alt={toyItem.title}
           fill

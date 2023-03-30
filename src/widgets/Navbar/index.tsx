@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="flex gap-5">
         <MenuBtn onClick={() => null} />
         {sessionData?.user.role === "Admin" && (
-          <div className="flex">
+          <div className="flex items-center">
             <SearchBtn onClick={() => setIsOpen((state) => !state)} />
 
             <AiOutlineExclamation

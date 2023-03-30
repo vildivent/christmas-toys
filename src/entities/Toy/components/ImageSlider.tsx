@@ -30,10 +30,10 @@ const ImageSlider = ({
       >
         {photos.map((photo, index) => (
           <SwiperSlide key={"sliderPhoto" + String(index)} unselectable="on">
-            <div className="relative flex h-[294px] w-full items-center justify-center">
+            <div className="relative flex h-[286px] w-full items-center justify-center">
               {setMainImgHandler && deleteImgHandler && (
                 <div className="absolute top-0 z-[1] flex w-full justify-end">
-                  <div className="flex gap-5 bg-gray-2/50 px-6 py-4">
+                  <div className="flex gap-5 rounded-bl-lg bg-gray-2/50 px-5 py-3">
                     <SetMainImgBtn
                       onClick={() => setMainImgHandler(photo.id)}
                       isMain={photo.isMain}
@@ -45,14 +45,14 @@ const ImageSlider = ({
               )}
               {photo.isLocal ? (
                 <img
-                  className="prevent-select z-0 h-[294px] w-full object-contain"
+                  className="prevent-select z-0 h-[286px] w-full rounded-md object-contain"
                   src={photo.url}
                   alt={photo.title}
                   draggable={false}
                 />
               ) : (
                 <Image
-                  className="prevent-select z-0 object-contain"
+                  className="prevent-select z-0 rounded-md object-contain"
                   src={photo.url}
                   alt={photo.title}
                   fill
