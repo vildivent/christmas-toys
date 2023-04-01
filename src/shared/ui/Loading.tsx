@@ -1,4 +1,5 @@
 import React from "react";
+import { theme } from "shared/constants";
 
 type LoadingProps = {
   size?: number | string;
@@ -12,7 +13,7 @@ const Loading = ({ size = "1.25rem" }: LoadingProps) => {
     >
       <svg
         aria-hidden="true"
-        className="animate-spin fill-green-600 text-white/20"
+        className={`animate-spin ${theme.mainColor.tw.fill} text-white/20`}
         style={{ width: size, height: size }}
         viewBox="0 0 100 101"
         fill="none"

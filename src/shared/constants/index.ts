@@ -1,32 +1,12 @@
 const color = "lightBlue";
 
-type Color = {
-  id: string;
-  tw: {
-    bg: string;
-    text: string;
-    border: string;
-
-    hover: {
-      bg: string;
-      text: string;
-      border: string;
-    };
-    focus: {
-      bg: string;
-      text: string;
-      border: string;
-    };
-  };
-  rgb: string;
-};
-
 const green600: Color = {
   id: "green-600",
   tw: {
     bg: "bg-green-600",
     text: "text-green-600",
     border: "border-green-600",
+    fill: "fill-green-600",
     hover: {
       bg: "hover:bg-green-600",
       text: "hover:text-green-600",
@@ -46,6 +26,7 @@ const green800: Color = {
     bg: "bg-green-800",
     text: "text-green-800",
     border: "border-green-800",
+    fill: "fill-green-800",
     hover: {
       bg: "hover:bg-green-800",
       text: "hover:text-green-800",
@@ -66,6 +47,7 @@ const blue400: Color = {
     bg: "bg-blue-400",
     text: "text-blue-400",
     border: "border-blue-400",
+    fill: "fill-blue-400",
     hover: {
       bg: "hover:bg-blue-400",
       text: "hover:text-blue-400",
@@ -85,6 +67,7 @@ const blue600: Color = {
     bg: "bg-blue-600",
     text: "text-blue-600",
     border: "border-blue-600",
+    fill: "fill-blue-600",
     hover: {
       bg: "hover:bg-blue-600",
       text: "hover:text-blue-600",
@@ -104,6 +87,7 @@ const blue800: Color = {
     bg: "bg-blue-800",
     text: "text-blue-800",
     border: "border-blue-800",
+    fill: "fill-blue-800",
     hover: {
       bg: "hover:bg-blue-800",
       text: "hover:text-blue-800",
@@ -124,6 +108,7 @@ const red600: Color = {
     bg: "bg-red-600",
     text: "text-red-600",
     border: "border-red-600",
+    fill: "fill-red-600",
     hover: {
       bg: "hover:bg-red-600",
       text: "hover:text-red-600",
@@ -143,6 +128,7 @@ const red800: Color = {
     bg: "bg-red-800",
     text: "text-red-800",
     border: "border-red-800",
+    fill: "fill-red-800",
     hover: {
       bg: "hover:bg-red-800",
       text: "hover:text-red-800",
@@ -163,6 +149,7 @@ const orange600: Color = {
     bg: "bg-orange-600",
     text: "text-orange-600",
     border: "border-orange-600",
+    fill: "fill-orange-600",
     hover: {
       bg: "hover:bg-orange-600",
       text: "hover:text-orange-600",
@@ -182,6 +169,7 @@ const orange800: Color = {
     bg: "bg-orange-800",
     text: "text-orange-800",
     border: "border-orange-800",
+    fill: "fill-orange-800",
     hover: {
       bg: "hover:bg-orange-800",
       text: "hover:text-orange-800",
@@ -201,6 +189,7 @@ const yellow600: Color = {
     bg: "bg-yellow-600",
     text: "text-yellow-600",
     border: "border-yellow-600",
+    fill: "fill-yellow-600",
     hover: {
       bg: "hover:bg-yellow-600",
       text: "hover:text-yellow-600",
@@ -220,6 +209,7 @@ const yellow800: Color = {
     bg: "bg-yellow-800",
     text: "text-yellow-800",
     border: "border-yellow-800",
+    fill: "fill-yellow-800",
     hover: {
       bg: "hover:bg-yellow-800",
       text: "hover:text-yellow-800",
@@ -239,6 +229,7 @@ const violet600: Color = {
     bg: "bg-violet-600",
     text: "text-violet-600",
     border: "border-violet-600",
+    fill: "fill-violet-600",
     hover: {
       bg: "hover:bg-violet-600",
       text: "hover:text-violet-600",
@@ -258,6 +249,7 @@ const violet800: Color = {
     bg: "bg-violet-800",
     text: "text-violet-800",
     border: "border-violet-800",
+    fill: "fill-violet-800",
     hover: {
       bg: "hover:bg-violet-800",
       text: "hover:text-violet-800",
@@ -270,6 +262,28 @@ const violet800: Color = {
     },
   },
   rgb: "rgb(91 33 182)",
+};
+
+type Color = {
+  id: string;
+  tw: {
+    bg: string;
+    text: string;
+    border: string;
+    fill: string;
+
+    hover: {
+      bg: string;
+      text: string;
+      border: string;
+    };
+    focus: {
+      bg: string;
+      text: string;
+      border: string;
+    };
+  };
+  rgb: string;
 };
 
 type Theme = {
