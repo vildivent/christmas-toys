@@ -13,7 +13,7 @@ module.exports = {
     },
     fontFamily: {
       h: ["Comfortaa", "cursive"],
-      text: ["Shantell Sans", "cursive"],
+      text: ["Exo 2", "sans-serif"],
     },
   },
   plugins: [],
