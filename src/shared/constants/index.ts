@@ -1,4 +1,4 @@
-const color = "green";
+const color = "lightBlue";
 
 type Color = {
   id: string;
@@ -60,6 +60,25 @@ const green800: Color = {
   rgb: "rgb(22 101 52)",
 };
 
+const blue400: Color = {
+  id: "blue-400",
+  tw: {
+    bg: "bg-blue-400",
+    text: "text-blue-400",
+    border: "border-blue-400",
+    hover: {
+      bg: "hover:bg-blue-400",
+      text: "hover:text-blue-400",
+      border: "hover:border-blue-400",
+    },
+    focus: {
+      bg: "focus:bg-blue-400",
+      text: "focus:text-blue-400",
+      border: "focus:border-blue-400",
+    },
+  },
+  rgb: "rgb(96 165 250)",
+};
 const blue600: Color = {
   id: "blue-600",
   tw: {
@@ -261,10 +280,10 @@ type Theme = {
 };
 
 const defaultTheme: Theme = {
-  id: "green",
-  title: "Зелёный",
-  mainColor: green600,
-  secondaryColor: green800,
+  id: "blue",
+  title: "Синий",
+  mainColor: blue600,
+  secondaryColor: blue800,
 };
 
 const themes: Theme[] = [
@@ -291,6 +310,12 @@ const themes: Theme[] = [
     title: "Зелёный",
     mainColor: green600,
     secondaryColor: green800,
+  },
+  {
+    id: "lightBlue",
+    title: "Голубой",
+    mainColor: blue400,
+    secondaryColor: blue600,
   },
   {
     id: "blue",

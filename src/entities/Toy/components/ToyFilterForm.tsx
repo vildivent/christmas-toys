@@ -8,6 +8,7 @@ import {
 import { datesOptions, materialOptions } from "entities/Toy/constants";
 import type { ToyQuery } from "../types";
 import { AiOutlineSearch } from "react-icons/ai";
+import { theme } from "shared/constants";
 
 type ToyFilterFormProps = {
   query: ToyQuery | null;
@@ -121,7 +122,7 @@ const ToyFilterForm = ({ query, setQuery }: ToyFilterFormProps) => {
 const Label = ({ name, children }: { name: string; children: ReactNode }) => {
   return (
     <>
-      <div className="text-green-500">{`${name} :`}</div>
+      <div className={theme.mainColor.tw.text}>{`${name} :`}</div>
       {children}
     </>
   );

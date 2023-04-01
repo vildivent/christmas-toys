@@ -45,13 +45,17 @@ export const AddBtn = ({
     >
       <div
         className={`flex items-center justify-center rounded-lg border transition ${
-          hovered ? "border-green-600" : ""
+          hovered ? theme.mainColor.tw.border : ""
         }`}
         style={{ width: size, height: size }}
       >
-        <Plus size={32} hovered={hovered} color="rgb(22 163 74)" />
+        <Plus size={32} hovered={hovered} color={theme.mainColor.rgb} />
       </div>
-      <span className={`${titleClassName} ${hovered ? "text-green-600" : ""}`}>
+      <span
+        className={`${titleClassName} ${
+          hovered ? theme.mainColor.tw.text : ""
+        }`}
+      >
         {title}
       </span>
     </button>

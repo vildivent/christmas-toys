@@ -154,7 +154,7 @@ function CardMenuAnimations({
 }: CardMenuAnimationsProps) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="m-3 flex items-center justify-end pr-2 text-2xl">
+    <div className="m-3 flex items-center justify-end text-2xl">
       {/* Delete */}
       <div
         className={`flex items-center transition-transform duration-300 ${

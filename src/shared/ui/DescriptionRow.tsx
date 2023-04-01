@@ -14,7 +14,7 @@ const DescriptionRow = ({
       {value && (
         <>
           <div className={`text-end ${color}`}>{`${title} :`}</div>
-          <div className="text-justify">{value.toString()}</div>
+          <div className="font-light">{value.toString()}</div>
         </>
       )}
     </>

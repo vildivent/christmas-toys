@@ -10,6 +10,7 @@ import {
 import { LoginBtn } from "shared/ui/buttons";
 import ImageSlider from "./ImageSlider";
 import { datesOptions, materialOptions } from "entities/Toy/constants";
+import { theme } from "shared/constants";
 
 export type ToyTmp = {
   title?: string | null;
@@ -152,7 +153,7 @@ const ToyEditForm = ({
 const Label = ({ name, children }: { name: string; children: ReactNode }) => {
   return (
     <>
-      <div className="text-green-500">{`${name} :`}</div>
+      <div className={theme.mainColor.tw.text}>{`${name} :`}</div>
       {children}
     </>
   );

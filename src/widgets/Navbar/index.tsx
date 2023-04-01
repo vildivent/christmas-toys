@@ -23,7 +23,7 @@ const Navbar = () => {
             <SearchBtn onClick={() => setIsOpen((state) => !state)} />
 
             <AiOutlineExclamation
-              className={`absolute top-1 right-7 text-lg text-red-500 ${
+              className={`absolute top-1 left-6 text-lg text-red-500 ${
                 filerIsOn ? "" : "opacity-0"
               }`}
             />

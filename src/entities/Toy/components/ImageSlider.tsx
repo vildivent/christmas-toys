@@ -33,7 +33,7 @@ const ImageSlider = ({
             <div className="relative flex h-[286px] w-full items-center justify-center">
               {setMainImgHandler && deleteImgHandler && (
                 <div className="absolute top-0 z-[1] flex w-full justify-end">
-                  <div className="flex gap-5 rounded-bl-lg bg-gray-2/50 px-5 py-3">
+                  <div className="flex gap-5 rounded-lg bg-gray-2/50 px-2 py-3">
                     <SetMainImgBtn
                       onClick={() => setMainImgHandler(photo.id)}
                       isMain={photo.isMain}

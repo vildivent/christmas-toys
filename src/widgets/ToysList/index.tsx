@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Image from "next/image";
 import {
   useCurrentToyStore,
   useNewToyStore,
@@ -14,6 +13,7 @@ import { AddBtn } from "shared/ui/buttons";
 import { exampleToy } from "entities/Toy/constants";
 import { useFilterCardStore } from "widgets/ToyFilter/lib/store";
 import { api } from "shared/api/trpc";
+import Loading from "shared/ui/Loading";
 
 const ToysList = () => {
   const { setIsOpen, setCardContent } = useCardStore();
@@ -59,7 +59,7 @@ const ToysList = () => {
       <div className="flex w-full flex-wrap justify-center gap-3 overflow-auto p-3 md:gap-5 md:p-5">
         <div className="flex h-36 w-40 flex-col items-center justify-center">
           {isLoading ? (
-            <Image src="/loading.svg" width={50} height={50} alt="Загрузка" />
+            <Loading size="2.5rem" />
           ) : (
             <AddBtn onClick={btnClickHandler} />
           )}

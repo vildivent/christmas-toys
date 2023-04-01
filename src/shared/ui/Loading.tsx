@@ -1,6 +1,10 @@
 import React from "react";
 
-const Loading = () => {
+type LoadingProps = {
+  size?: number | string;
+};
+
+const Loading = ({ size = "1.25rem" }: LoadingProps) => {
   return (
     <div
       role="status"
@@ -8,7 +12,8 @@ const Loading = () => {
     >
       <svg
         aria-hidden="true"
-        className="h-5 w-5 animate-spin fill-green-600 text-gray-200"
+        className="animate-spin fill-green-600 text-white/20"
+        style={{ width: size, height: size }}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
