@@ -9,7 +9,8 @@ import Loading from "shared/ui/Loading";
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
 
-  if (session?.user.role !== "ADMIN") return { notFound: true, props: {} };
+  if (session?.user.role !== "ADMIN")
+    return { redirect: { destination: "/", permanent: false }, props: {} };
 
   return { props: { session } };
 };
