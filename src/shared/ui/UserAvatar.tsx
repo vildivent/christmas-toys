@@ -1,24 +1,26 @@
 import Image, { type StaticImageData } from "next/image";
 
 type UserAvatarProps = {
-  src: string | StaticImageData;
+  src: string | StaticImageData | null;
   alt: string | null | undefined;
-  size: number | string;
+  size?: number | string;
 };
 
-const UserAvatar = ({ src, alt, size }: UserAvatarProps) => {
+const UserAvatar = ({ src, alt, size = "2.5rem" }: UserAvatarProps) => {
   return (
     <div
       className="relative rounded-full"
       style={{ height: size, width: size }}
     >
-      <Image
-        className="rounded-full"
-        src={src}
-        alt={alt || "user"}
-        fill
-        sizes={typeof size === "number" ? `${size}px` : size}
-      />
+      {src && (
+        <Image
+          className="rounded-full"
+          src={src}
+          alt={alt || "user"}
+          fill
+          sizes={typeof size === "number" ? `${size}px` : size}
+        />
+      )}
     </div>
   );
 };

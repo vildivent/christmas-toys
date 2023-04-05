@@ -13,6 +13,7 @@ export const SelectInput = ({
   onChange,
   options,
   className = inputStyle,
+  disabled = false,
 }: SelectInputProps) => {
   return (
     <select
@@ -21,6 +22,7 @@ export const SelectInput = ({
       className={className}
       value={value}
       onChange={onChange}
+      disabled={disabled}
     >
       {options.map((option) => (
         <option value={option} key={option}>
@@ -120,6 +122,7 @@ type InputProps<ValueType, Element> = {
   value: ValueType;
   onChange: ChangeEventHandler<Element>;
   className?: string;
+  disabled?: boolean;
 };
 type Mask = { mask?: (value: string) => string };
 type ID = { id: string };

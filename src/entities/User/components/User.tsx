@@ -1,25 +1,45 @@
-import { useSession } from "next-auth/react";
-import UserAvatar from "../../../shared/ui/UserAvatar";
+import { type UserRole } from "next-auth";
+import { UserAvatar } from "shared/ui";
+import { SelectInput } from "shared/ui/inputs";
 
-const User = () => {
-  const { data: sessionData } = useSession();
+enum Role {
+  ADMIN = "Администратор",
+  USER = "Пользователь",
+  GUEST = "Гость",
+}
 
+type UserProps = {
+  id: string;
+  name: string | null;
+  image: string | null;
+  role: UserRole;
+  setNewRole: (id: string, newRole: string) => void;
+  options: Role[];
+  disabled?: boolean;
+};
+
+const User = ({
+  id,
+  name,
+  image,
+  role,
+  setNewRole,
+  options,
+  disabled,
+}: UserProps) => {
   return (
     <>
-      {sessionData?.user && (
-        <div className="flex items-center gap-2">
-          {sessionData.user.image && (
-            <UserAvatar
-              size="2.5rem"
-              src={sessionData.user.image}
-              alt={sessionData.user.name?.split(" ")[0]}
-            />
-          )}
-          <span className="font-h text-xl text-white">
-            {sessionData.user.name?.split(" ")[0]}
-          </span>
-        </div>
-      )}
+      <div className="flex items-center gap-5">
+        <UserAvatar src={image} alt={name} />
+        <span>{name}</span>
+      </div>
+      <SelectInput
+        id="role"
+        options={options}
+        value={Role[role]}
+        onChange={(e) => setNewRole(id, e.target.value)}
+        disabled={disabled}
+      />
     </>
   );
 };
