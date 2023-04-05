@@ -9,7 +9,7 @@ const ToyFilter = () => {
   const { query, setQuery } = useToysQueryStore();
   return (
     <div
-      className={`absolute z-[10] flex h-[100svh] w-[100vw] flex-col bg-gray-2/80 transition-all duration-300 md:w-[calc(100vw-65vw-0.5rem)] ${
+      className={`absolute z-[10] flex h-[100svh] w-[100vw] flex-col bg-gray-2/80 transition-all duration-300 md:w-[calc(100vw-65vw-0.25rem)] ${
         isOpen ? "" : "translate-x-[-100vw] md:translate-x-[calc(-65vw-0.5rem)]"
       }`}
     >

@@ -18,13 +18,6 @@ const Modal = ({
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflowY = isOpen ? "hidden" : "scroll";
-    return () => {
-      document.body.style.overflowY = "scroll";
-    };
-  }, [isOpen]);
-
   const modalContent = (
     <div
       className={`${

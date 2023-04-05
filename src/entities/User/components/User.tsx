@@ -31,7 +31,7 @@ const User = ({
     <>
       <div className="flex items-center gap-5">
         <UserAvatar src={image} alt={name} />
-        <span>{name}</span>
+        <span className="flex">{name}</span>
       </div>
       <SelectInput
         id="role"

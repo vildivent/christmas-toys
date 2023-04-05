@@ -9,7 +9,7 @@ type UserAvatarProps = {
 const UserAvatar = ({ src, alt, size = "2.5rem" }: UserAvatarProps) => {
   return (
     <div
-      className="relative rounded-full"
+      className="relative shrink-0 rounded-full"
       style={{ height: size, width: size }}
     >
       {src && (
