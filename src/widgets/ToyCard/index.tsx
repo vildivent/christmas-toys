@@ -78,8 +78,10 @@ const ToyCard = () => {
 
   return (
     <div
-      className={`flex w-full flex-col bg-gray-2/80 transition-all duration-300 md:w-[calc(100vw-65vw-0.5rem)] ${
-        isOpen ? "h-[calc(100svh-4rem)]" : "h-0 md:h-[calc(100svh-4rem)]"
+      className={`flex w-full flex-col bg-gray-2/80 transition-all duration-300 md:w-[calc(100vw-65vw-0.25rem)] ${
+        isOpen
+          ? "h-[calc(100svh-4rem+0.25rem)]"
+          : "h-0 md:h-[calc(100svh-4rem+0.25rem)]"
       }`}
     >
       <CardMenu hiddenFileInput={hiddenFileInput} />

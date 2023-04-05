@@ -32,3 +32,18 @@ input[type="number"]::-webkit-outer-spin-button {
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
+
+.text-shadow {
+  --text-shadow: -0 -1px 0 var(--text-shadow-color),
+    0 -1px 0 var(--text-shadow-color), -0 1px 0 var(--text-shadow-color),
+    0 1px 0 var(--text-shadow-color), -1px -0 0 var(--text-shadow-color),
+    1px -0 0 var(--text-shadow-color), -1px 0 0 var(--text-shadow-color),
+    1px 0 0 var(--text-shadow-color), -1px -1px 0 var(--text-shadow-color),
+    1px -1px 0 var(--text-shadow-color), -1px 1px 0 var(--text-shadow-color),
+    1px 1px 0 var(--text-shadow-color), -1px -1px 0 var(--text-shadow-color),
+    1px -1px 0 var(--text-shadow-color), -1px 1px 0 var(--text-shadow-color),
+    1px 1px 0 var(--text-shadow-color);
+
+  --text-shadow-color: rgb(30 30 30 / 0.8);
+  text-shadow: var(--text-shadow);
+}

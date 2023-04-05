@@ -18,7 +18,7 @@ import { prisma } from "./db";
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  **/
 declare module "next-auth" {
-  type UserRole = "User" | "Admin";
+  type UserRole = "ADMIN" | "USER" | "GUEST";
 
   interface Session extends DefaultSession {
     user: {

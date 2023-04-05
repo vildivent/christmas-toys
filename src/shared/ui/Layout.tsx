@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
       <div className="fixed inset-0 h-[100svh] w-screen landscape:hidden landscape:lg:block">
         <Image className="object-cover" src="/bg.jpg" alt="Фон" fill priority />
 
-        <div className="fixed inset-0 flex flex-col gap-2">
+        <div className="fixed inset-0 flex flex-col gap-1">
           <Navbar />
           <div className="relative flex-1">{children}</div>
         </div>

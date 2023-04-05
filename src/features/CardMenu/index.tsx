@@ -21,6 +21,7 @@ import { fileListToAddMapper } from "./lib/fileListToAddMapper";
 import Modal from "shared/ui/Modal";
 import { api } from "shared/api/trpc";
 import Loading from "shared/ui/Loading";
+import { useSession } from "next-auth/react";
 
 type CardMenuProps = {
   hiddenFileInput: RefObject<HTMLInputElement>;
@@ -152,70 +153,76 @@ function CardMenuAnimations({
   checkHandler,
   closeHandler,
 }: CardMenuAnimationsProps) {
+  const { data: sessionData } = useSession();
+
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="m-3 flex items-center justify-end text-2xl">
-      {/* Delete */}
-      <div
-        className={`flex items-center transition-transform duration-300 ${
-          content !== "edit"
-            ? " pointer-events-none translate-x-[44px] opacity-0"
-            : "ml-5"
-        }`}
-      >
-        <DeleteBtn
-          onClick={() => setIsOpen(true)}
-          disabled={content !== "edit"}
-        />
-      </div>
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen} padding={true}>
-        <div className="flex flex-col justify-center gap-5">
-          <h2 className="text-center font-h text-lg">
-            Вы действительно хотите удалить ВСЮ игрушку целиком, включая все
-            фотографии?
-          </h2>
-          <div className="flex justify-center gap-10">
-            <RedBtn
-              onClick={(e) => {
-                deleteHandler(e);
-                setIsOpen(false);
-              }}
-            >
-              Удалить
-            </RedBtn>
-            <WhiteBtn onClick={() => setIsOpen(false)}>Нет</WhiteBtn>
+      {sessionData?.user.role === "ADMIN" && (
+        <>
+          {/* Delete */}
+          <div
+            className={`flex items-center transition-transform duration-300 ${
+              content !== "edit"
+                ? " pointer-events-none translate-x-[44px] opacity-0"
+                : "ml-5"
+            }`}
+          >
+            <DeleteBtn
+              onClick={() => setIsOpen(true)}
+              disabled={content !== "edit"}
+            />
           </div>
-        </div>
-      </Modal>
+          <Modal isOpen={isOpen} setIsOpen={setIsOpen} padding={true}>
+            <div className="flex flex-col justify-center gap-5">
+              <h2 className="text-center font-h text-lg">
+                Вы действительно хотите удалить ВСЮ игрушку целиком, включая все
+                фотографии?
+              </h2>
+              <div className="flex justify-center gap-10">
+                <RedBtn
+                  onClick={(e) => {
+                    deleteHandler(e);
+                    setIsOpen(false);
+                  }}
+                >
+                  Удалить
+                </RedBtn>
+                <WhiteBtn onClick={() => setIsOpen(false)}>Нет</WhiteBtn>
+              </div>
+            </div>
+          </Modal>
 
-      {/*Edit */}
-      <div
-        className={`transition-transform duration-150 ${
-          content !== "selected"
-            ? "pointer-events-none w-0 translate-x-[-24px] opacity-0"
-            : "ml-5"
-        }`}
-      >
-        <EditBtn onClick={editHandler} disabled={content !== "selected"} />
-      </div>
+          {/*Edit */}
+          <div
+            className={`transition-transform duration-150 ${
+              content !== "selected"
+                ? "pointer-events-none w-0 translate-x-[-24px] opacity-0"
+                : "ml-5"
+            }`}
+          >
+            <EditBtn onClick={editHandler} disabled={content !== "selected"} />
+          </div>
 
-      {/*Check */}
-      <div
-        className={`transition-transform duration-150 ${
-          content !== "edit" && content !== "create"
-            ? "pointer-events-none w-0 translate-x-[24px] opacity-0"
-            : "ml-5"
-        }`}
-      >
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <CheckBtn
-            onClick={checkHandler}
-            disabled={content !== "edit" && content !== "create"}
-          />
-        )}
-      </div>
+          {/*Check */}
+          <div
+            className={`transition-transform duration-150 ${
+              content !== "edit" && content !== "create"
+                ? "pointer-events-none w-0 translate-x-[24px] opacity-0"
+                : "ml-5"
+            }`}
+          >
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <CheckBtn
+                onClick={checkHandler}
+                disabled={content !== "edit" && content !== "create"}
+              />
+            )}
+          </div>
+        </>
+      )}
 
       {/*Close */}
       <div

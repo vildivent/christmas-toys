@@ -14,8 +14,11 @@ import { exampleToy } from "entities/Toy/constants";
 import { useFilterCardStore } from "widgets/ToyFilter/lib/store";
 import { api } from "shared/api/trpc";
 import Loading from "shared/ui/Loading";
+import { useSession } from "next-auth/react";
 
 const ToysList = () => {
+  const { data: sessionData } = useSession();
+
   const { setIsOpen, setCardContent } = useCardStore();
   const setFilterIsOpen = useFilterCardStore((state) => state.setIsOpen);
 
@@ -55,15 +58,17 @@ const ToysList = () => {
   };
 
   return (
-    <div className="flex h-[calc(100svh-4rem)] flex-col bg-gray-2/80 md:w-[65vw]">
+    <div className="flex h-[calc(100svh-4rem+0.25rem)] flex-col bg-gray-2/80 md:w-[65vw]">
       <div className="flex w-full flex-wrap justify-center gap-3 overflow-auto p-3 md:gap-5 md:p-5">
-        <div className="flex h-36 w-40 flex-col items-center justify-center">
-          {isLoading ? (
-            <Loading size="2.5rem" />
-          ) : (
-            <AddBtn onClick={btnClickHandler} />
-          )}
-        </div>
+        {(sessionData?.user.role === "ADMIN" || isLoading) && (
+          <div className="flex h-36 w-40 flex-col items-center justify-center">
+            {isLoading ? (
+              <Loading size="2.5rem" />
+            ) : (
+              <AddBtn onClick={btnClickHandler} />
+            )}
+          </div>
+        )}
 
         {data &&
           data.map((toyItem) => {

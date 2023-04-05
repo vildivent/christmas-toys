@@ -11,7 +11,7 @@ const FilterMenu = () => {
   const closeHandler = () => setIsOpen(false);
 
   return (
-    <div className="m-5 flex justify-end gap-5 pr-2 text-2xl">
+    <div className="m-3 flex justify-end gap-5 text-2xl">
       <ClearFilterBtn onClick={resetHandler} />
       <CloseBtn onClick={closeHandler} />
     </div>

@@ -115,7 +115,24 @@ export const publicProcedure = t.procedure;
 // });
 
 const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user || ctx.session.user.role !== "Admin") {
+  if (!ctx.session || !ctx.session.user || ctx.session.user.role !== "ADMIN") {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
+const enforceUserHasAccess = t.middleware(({ ctx, next }) => {
+  if (
+    !ctx.session ||
+    !ctx.session.user ||
+    (ctx.session.user.role !== "ADMIN" && ctx.session.user.role !== "USER")
+  ) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
@@ -137,3 +154,4 @@ const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAdmin);
+export const userProcedure = t.procedure.use(enforceUserHasAccess);

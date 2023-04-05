@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, userProcedure } from "../trpc";
 import { deleteFile } from "features/CardMenu/api";
 
 const Zphotos = z.array(
@@ -170,14 +170,14 @@ export const toyRouter = createTRPCRouter({
       return await ctx.prisma.toy.delete({ where: { id: input } });
     }),
 
-  getAll: protectedProcedure.query(async ({ ctx }) => {
+  getAll: userProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.toy.findMany({
       orderBy: { createdAt: "desc" },
       include: { photos: { orderBy: { isMain: "desc" } }, mainPhoto: true },
     });
   }),
 
-  getById: protectedProcedure
+  getById: userProcedure
     .input(z.object({ id: z.string().optional() }))
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.toy.findUnique({
@@ -186,7 +186,7 @@ export const toyRouter = createTRPCRouter({
       });
     }),
 
-  get: protectedProcedure.input(zodGetInput).query(async ({ ctx, input }) => {
+  get: userProcedure.input(zodGetInput).query(async ({ ctx, input }) => {
     return await ctx.prisma.toy.findMany({
       where: {
         OR: [

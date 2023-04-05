@@ -23,12 +23,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {sessionData?.user.role === "Admin" ? (
+        {sessionData?.user.role === "ADMIN" ||
+        sessionData?.user.role === "USER" ? (
           <>
             <ToyFilter />
 
             <div
-              className={`z-0 flex h-full w-full flex-col transition duration-300 md:flex-row md:gap-2 ${
+              className={`z-0 flex h-full w-full flex-col transition duration-300 md:flex-row md:gap-1 ${
                 isFilterOpen ? "opacity-0 md:opacity-100" : ""
               }`}
             >
@@ -44,14 +45,14 @@ const Home: NextPage = () => {
             </div>
           </>
         ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <div className="m-5 flex flex-col gap-5 bg-gray-2/80 p-5 text-center">
-              <h1 className="text-center font-h text-3xl">
+          <div className="flex h-full w-full justify-center">
+            <div className="m-5 mt-40 flex flex-col gap-5 p-5 text-center">
+              <h1 className="text-shadow text-center font-h text-3xl">
                 Коллекция ёлочных игрушек
               </h1>
               {sessionData && (
-                <div className="text-red-500">
-                  только администратор может просматривать коллекцию
+                <div className="flex items-center justify-center rounded-md bg-gray-2/80 p-2 shadow-md">
+                  Для просмотра коллекции обратитесь к администратору
                 </div>
               )}
             </div>

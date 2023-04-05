@@ -18,7 +18,8 @@ const Navbar = () => {
     <nav className="flex w-full items-center justify-between bg-gray-2/80 px-2 py-2 md:px-5">
       <div className="flex gap-2">
         <MenuBtn onClick={() => null} />
-        {sessionData?.user.role === "Admin" && (
+        {(sessionData?.user.role === "ADMIN" ||
+          sessionData?.user.role === "USER") && (
           <div className="relative flex items-center gap-4">
             <SearchBtn onClick={() => setIsOpen((state) => !state)} />
 
