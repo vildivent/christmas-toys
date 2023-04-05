@@ -1,19 +1,32 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useState, useEffect } from "react";
 import Navbar from "../../widgets/Navbar";
 import Image from "next/image";
+import SidebarMenu from "widgets/SidebarMenu";
 
 type LayoutProps = {
   children: ReactNode;
 };
 
 const Layout = ({ children }: LayoutProps) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflowY = sidebarOpen ? "hidden" : "scroll";
+    return () => {
+      document.body.style.overflowY = "scroll";
+    };
+  }, [sidebarOpen]);
   return (
     <>
       <div className="fixed inset-0 h-[100svh] w-screen landscape:hidden landscape:lg:block">
         <Image className="object-cover" src="/bg.jpg" alt="Фон" fill priority />
 
         <div className="fixed inset-0 flex flex-col gap-1">
-          <Navbar />
+          <Navbar setSidebarOpen={setSidebarOpen} />
+          <SidebarMenu
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+          />
           <div className="relative flex-1">{children}</div>
         </div>
       </div>

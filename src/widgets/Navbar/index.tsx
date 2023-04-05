@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 import { useToysNumberStore, useToysQueryStore } from "entities/Toy/lib/store";
 import CurrentUser from "../../entities/User/components/CurrentUser";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -9,7 +9,11 @@ import { type ToyQuery } from "entities/Toy/types";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const Navbar = () => {
+type NavbarProps = {
+  setSidebarOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+const Navbar = ({ setSidebarOpen }: NavbarProps) => {
   const { data: sessionData } = useSession();
   const { pathname } = useRouter();
   const { setIsOpen } = useFilterCardStore();
@@ -17,24 +21,27 @@ const Navbar = () => {
   const { toysNumber } = useToysNumberStore();
   const filerIsOn = useFilterIsOn(query);
 
+  const isAdmin = sessionData?.user.role === "ADMIN";
+  const isUser = sessionData?.user.role === "USER";
+
   return (
     <nav className="flex w-full items-center justify-between bg-gray-2/80 px-2 py-2 md:px-5">
       <div className="flex gap-2">
-        <MenuBtn onClick={() => null} />
-        {(sessionData?.user.role === "ADMIN" ||
-          sessionData?.user.role === "USER") &&
-          pathname === "/" && (
-            <div className="relative flex items-center gap-4">
-              <SearchBtn onClick={() => setIsOpen((state) => !state)} />
+        {isAdmin && (
+          <MenuBtn onClick={() => setSidebarOpen((value) => !value)} />
+        )}
+        {(isAdmin || isUser) && pathname === "/" && (
+          <div className="relative flex items-center gap-4">
+            <SearchBtn onClick={() => setIsOpen((state) => !state)} />
 
-              <AiOutlineExclamation
-                className={`absolute top-1 left-6 text-lg text-red-500 ${
-                  filerIsOn ? "" : "opacity-0"
-                }`}
-              />
-              <div className="text-lg">{toysNumber || 0}</div>
-            </div>
-          )}
+            <AiOutlineExclamation
+              className={`absolute top-1 left-6 text-lg text-red-500 ${
+                filerIsOn ? "" : "opacity-0"
+              }`}
+            />
+            <div className="text-lg">{toysNumber || 0}</div>
+          </div>
+        )}
       </div>
 
       <div className="flex justify-center gap-2">
