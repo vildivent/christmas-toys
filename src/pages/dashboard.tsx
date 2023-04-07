@@ -22,13 +22,11 @@ const Dashboard: NextPage = () => {
   if (sessionData?.user.role !== "ADMIN") return null;
 
   const { data: users, isLoading: loadingUsers } = api.user.getAll.useQuery();
-  const { mutate, isLoading: updateUsersLoading } = api.user.update.useMutation(
-    {
-      onSuccess() {
-        void ctx.user.getAll.invalidate();
-      },
-    }
-  );
+  const { mutate } = api.user.update.useMutation({
+    onSuccess() {
+      void ctx.user.getAll.invalidate();
+    },
+  });
 
   const setNewRole = (id: string, newRole: string) => {
     if (newRole === Role.ADMIN) mutate({ id, role: "ADMIN" });
@@ -39,26 +37,26 @@ const Dashboard: NextPage = () => {
   return (
     <Layout>
       <div className="relative flex h-full w-full flex-col items-center gap-5 bg-gray-2/80 p-5">
-        <div className="flex w-full items-center justify-center gap-2">
-          <h2 className="font-h text-2xl">Список пользователей</h2>
-          {(loadingUsers || updateUsersLoading) && <Loading />}
-        </div>
-
-        <div className="grid grid-cols-2 gap-y-5 gap-x-2">
-          {users &&
-            users.map((user) => (
-              <User
-                key={user.id}
-                id={user.id}
-                name={user.name}
-                image={user.image}
-                role={user.role}
-                setNewRole={setNewRole}
-                options={options}
-                disabled={user.id === sessionData?.user.id}
-              />
-            ))}
-        </div>
+        <h2 className="font-h text-2xl">Список пользователей</h2>
+        {loadingUsers ? (
+          <Loading />
+        ) : (
+          <div className="grid grid-cols-2 gap-y-5 gap-x-2">
+            {users &&
+              users.map((user) => (
+                <User
+                  key={user.id}
+                  id={user.id}
+                  name={user.name}
+                  image={user.image}
+                  role={user.role}
+                  setNewRole={setNewRole}
+                  options={options}
+                  disabled={user.id === sessionData?.user.id}
+                />
+              ))}
+          </div>
+        )}
       </div>
     </Layout>
   );
