@@ -18,7 +18,9 @@ export const exampleToy: ToyItem = {
 
 export const datesOptions = [
   "",
-  "Современные",
+  "2020-е",
+  "2010-е",
+  "2000-е",
   "90-е",
   "80-е",
   "70-е",
@@ -26,10 +28,7 @@ export const datesOptions = [
   "50-е",
   "40-е",
   "30-е",
-  "20-е",
-  "10-е",
   "19-й век",
-  "18-й век",
 ];
 
 export const materialOptions = [

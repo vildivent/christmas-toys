@@ -40,6 +40,8 @@ const CardMenu = ({ hiddenFileInput }: CardMenuProps) => {
 
   const ctx = api.useContext();
 
+  const [photoIsLoading, setPhotoIsLoading] = useState(false);
+
   const createToy = api.toy.create.useMutation({
     onSuccess() {
       void ctx.toy.get.invalidate(query);
@@ -98,6 +100,8 @@ const CardMenu = ({ hiddenFileInput }: CardMenuProps) => {
       if (data) photosToAdd = fileMapper(data, newToy.title, photos);
     }
 
+    setPhotoIsLoading(false);
+
     if (content === "create") {
       if (photos) createToy.mutate({ ...newToy, photos: photosToAdd });
       else createToy.mutate({ ...newToy });
@@ -123,12 +127,18 @@ const CardMenu = ({ hiddenFileInput }: CardMenuProps) => {
   return (
     <CardMenuAnimations
       isLoading={
-        createToy.isLoading || updateToy.isLoading || deleteToy.isLoading
+        createToy.isLoading ||
+        updateToy.isLoading ||
+        deleteToy.isLoading ||
+        photoIsLoading
       }
       content={content}
       deleteHandler={deleteHandler}
       editHandler={editHandler}
-      checkHandler={() => void checkHandler()}
+      checkHandler={() => {
+        setPhotoIsLoading(true);
+        void checkHandler();
+      }}
       closeHandler={closeHandler}
     />
   );
