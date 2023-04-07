@@ -26,6 +26,7 @@ const server = z.object({
   VK_CLIENT_SECRET: z.string(),
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
+  NEXT_PUBLIC_URL: z.string(),
 });
 
 /**
@@ -53,6 +54,7 @@ const processEnv = {
   VK_CLIENT_SECRET: process.env.VK_CLIENT_SECRET,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

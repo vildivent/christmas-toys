@@ -7,6 +7,7 @@ import ToysList from "widgets/ToysList";
 import ToyCard from "widgets/ToyCard";
 import ToyFilter from "widgets/ToyFilter";
 import { useFilterCardStore } from "widgets/ToyFilter/lib/store";
+import { env } from "env.mjs";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -20,7 +21,17 @@ const Home: NextPage = () => {
           name="description"
           content="Коллекция ёлочных игрушек Гунько С.Ю."
         />
+        <meta property="og:title" content="Коллекция ёлочных игрушек" />
+        <meta property="og:url" content={env.NEXT_PUBLIC_URL} />
+        <meta
+          property="og:description"
+          content="Коллекция ёлочных игрушек Гунько С.Ю."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="ru_RU" />
+        <meta property="og:image" content="/logo.png" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/logo.png" />
       </Head>
       <Layout>
         {sessionData?.user.role === "ADMIN" ||
